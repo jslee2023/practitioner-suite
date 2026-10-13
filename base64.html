@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,19 @@
   <meta name="twitter:title" content="Base64 Encoder & Decoder - Free Online Tool | UtilinOne">
   <meta name="twitter:description" content="Free online Base64 encoder and decoder. Encode text to Base64 or decode Base64 to text directly in your browser.">
 
+  <!-- Tailwind CSS v4 Browser Build -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+  <!-- Tailwind v4 Custom Dark Mode Variant Configuration -->
+  <style type="text/tailwindcss">
+    @custom-variant dark (&:where(.dark, .dark *));
+  </style>
+
   <style>
+    :root { color-scheme: light; }
+    .dark { color-scheme: dark; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -33,32 +43,47 @@
       background: #94a3b8;
     }
 
+    .dark ::-webkit-scrollbar-track {
+      background: rgba(31, 41, 55, 0.8);
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+      background: #4b5563;
+    }
+
+    .dark ::-webkit-scrollbar-thumb:hover {
+      background: #6b7280;
+    }
+
     .glow-sky {
       box-shadow: 0 0 45px -10px rgba(14, 165, 233, 0.12);
+    }
+    .dark .glow-sky {
+      box-shadow: 0 0 45px -10px rgba(14, 165, 233, 0.05);
     }
   </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col font-sans antialiased selection:bg-sky-500/20 selection:text-sky-700">
+<body class="bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-sky-500/20 selection:text-sky-700 dark:selection:text-sky-300 transition-colors duration-200">
 
   <div class="fixed top-0 left-1/4 w-96 h-96 bg-sky-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
   <div class="fixed top-1/3 right-10 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
   <div class="fixed bottom-10 left-1/3 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-  <header class="border-b border-slate-200/80 bg-white/80 backdrop-blur-xl sticky top-0 z-40">
+  <header class="border-b border-slate-200/80 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl sticky top-0 z-40 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
 
       <div class="flex items-center gap-4 min-w-0">
 
         <a
           href="index.html"
-          class="shrink-0 inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-indigo-600 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 rounded-lg"
+          class="shrink-0 inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 rounded-lg"
         >
           <span aria-hidden="true">&larr;</span>
           UtilinOne
         </a>
 
-        <div class="hidden sm:block w-px h-8 bg-slate-200"></div>
+        <div class="hidden sm:block w-px h-8 bg-slate-200 dark:bg-gray-800"></div>
 
         <div class="flex items-center gap-3 min-w-0">
 
@@ -73,23 +98,44 @@
 
             <div class="flex items-center gap-2.5 flex-wrap">
 
-              <h1 class="text-lg sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+              <h1 class="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 Base64 Encoder / Decoder
               </h1>
 
-              <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-700 border border-sky-500/20">
+              <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/10 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400 border border-sky-500/20 dark:border-sky-800">
                 Client-Side
               </span>
 
             </div>
 
-            <p class="text-xs sm:text-sm text-slate-500 hidden sm:block font-medium truncate">
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-gray-400 hidden sm:block font-medium truncate">
               Encode text to Base64 or decode Base64 back to text. Your data is processed directly in your browser.
             </p>
 
           </div>
         </div>
       </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Dark Mode Toggle Button -->
+        <button id="btnThemeToggle" class="p-2 rounded-xl bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-200 transition-all cursor-pointer border border-slate-200 dark:border-gray-700 shadow-sm" title="Toggle Dark / Light Mode">
+          <svg id="themeIconSun" class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="themeIconMoon" class="w-4 h-4 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+
     </div>
   </header>
 
@@ -99,11 +145,11 @@
 
       <div class="mb-6">
 
-        <h2 id="tool-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
+        <h2 id="tool-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2">
           Base64 Encoder / Decoder
         </h2>
 
-        <p class="text-slate-600 text-sm sm:text-base max-w-3xl">
+        <p class="text-slate-600 dark:text-gray-400 text-sm sm:text-base max-w-3xl">
           Encode text to Base64 or decode Base64 back to text. Your data is processed directly in your browser.
         </p>
 
@@ -112,7 +158,7 @@
       <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
 
         <div
-          class="flex space-x-1 p-1 bg-white border border-slate-200 rounded-xl shadow-sm"
+          class="flex space-x-1 p-1 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl shadow-sm transition-colors duration-200"
           role="tablist"
           aria-label="Conversion mode"
         >
@@ -122,7 +168,7 @@
             id="tabEncode"
             role="tab"
             aria-selected="true"
-            class="mode-tab px-4 py-2 rounded-lg text-sm font-medium transition min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 bg-sky-500/10 text-sky-700 border border-sky-500/20"
+            class="mode-tab px-4 py-2 rounded-lg text-sm font-medium transition min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 bg-sky-500/10 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400 border border-sky-500/20 dark:border-sky-800 cursor-pointer"
           >
             Encode
           </button>
@@ -132,7 +178,7 @@
             id="tabDecode"
             role="tab"
             aria-selected="false"
-            class="mode-tab px-4 py-2 rounded-lg text-sm font-medium transition min-h-10 text-slate-500 hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50"
+            class="mode-tab px-4 py-2 rounded-lg text-sm font-medium transition min-h-10 text-slate-500 dark:text-gray-400 hover:text-slate-800 dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 cursor-pointer"
           >
             Decode
           </button>
@@ -149,14 +195,14 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-        <section class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col min-h-[22rem]">
+        <section class="bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col min-h-[22rem] transition-colors duration-200">
 
           <div class="flex items-center justify-between gap-3 mb-4">
 
             <label
               for="base64Input"
               id="inputLabel"
-              class="text-xs font-bold uppercase tracking-wider text-slate-500"
+              class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400"
             >
               Input
             </label>
@@ -168,7 +214,7 @@
             spellcheck="false"
             rows="10"
             placeholder="Enter text to encode..."
-            class="flex-1 min-h-48 sm:min-h-72 w-full resize-y rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 text-sm text-slate-800 font-mono leading-relaxed placeholder:text-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
+            class="flex-1 min-h-48 sm:min-h-72 w-full resize-y rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 font-mono leading-relaxed placeholder:text-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
           ></textarea>
 
           <div class="mt-4">
@@ -176,7 +222,7 @@
             <button
               type="button"
               id="btnConvert"
-              class="w-full min-h-11 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-sm font-semibold text-white transition shadow-sm active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/70"
+              class="w-full min-h-11 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-sm font-semibold text-white transition shadow-sm active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/70 cursor-pointer"
             >
               Encode
             </button>
@@ -184,13 +230,13 @@
           </div>
         </section>
 
-        <section class="bg-white border border-sky-500/30 rounded-2xl p-5 sm:p-6 shadow-sm glow-sky flex flex-col min-h-[22rem]">
+        <section class="bg-white dark:bg-gray-900 border border-sky-500/30 rounded-2xl p-5 sm:p-6 shadow-sm glow-sky flex flex-col min-h-[22rem] transition-colors duration-200">
 
           <div class="flex items-center justify-between gap-3 mb-4">
 
             <label
               for="base64Output"
-              class="text-xs font-bold uppercase tracking-wider text-slate-500"
+              class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400"
             >
               Output
             </label>
@@ -203,15 +249,15 @@
             rows="10"
             readonly
             placeholder="Result will appear here..."
-            class="flex-1 min-h-48 sm:min-h-72 w-full resize-y rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 text-sm text-slate-800 font-mono leading-relaxed placeholder:text-slate-400 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
+            class="flex-1 min-h-48 sm:min-h-72 w-full resize-y rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 font-mono leading-relaxed placeholder:text-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
           ></textarea>
 
-          <div class="mt-4 pt-4 border-t border-slate-200 flex flex-wrap gap-2">
+          <div class="mt-4 pt-4 border-t border-slate-200 dark:border-gray-800 flex flex-wrap gap-2">
 
             <button
               type="button"
               id="btnCopy"
-              class="flex-1 min-w-[7.5rem] min-h-11 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-sm font-semibold text-slate-700 transition flex items-center justify-center gap-2 border border-slate-200 shadow-sm active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
+              class="flex-1 min-w-[7.5rem] min-h-11 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-sm font-semibold text-slate-700 dark:text-gray-200 transition flex items-center justify-center gap-2 border border-slate-200 dark:border-gray-700 shadow-sm active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 cursor-pointer"
             >
               <span id="copyLabel">Copy</span>
             </button>
@@ -219,7 +265,7 @@
             <button
               type="button"
               id="btnSwap"
-              class="flex-1 min-w-[7.5rem] min-h-11 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-sm font-semibold text-slate-700 transition border border-slate-200 shadow-sm active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
+              class="flex-1 min-w-[7.5rem] min-h-11 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-sm font-semibold text-slate-700 dark:text-gray-200 transition border border-slate-200 dark:border-gray-700 shadow-sm active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 cursor-pointer"
             >
               Swap
             </button>
@@ -227,7 +273,7 @@
             <button
               type="button"
               id="btnClear"
-              class="flex-1 min-w-[7.5rem] min-h-11 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-sm font-semibold text-slate-700 transition border border-slate-200 shadow-sm active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
+              class="flex-1 min-w-[7.5rem] min-h-11 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-sm font-semibold text-slate-700 dark:text-gray-200 transition border border-slate-200 dark:border-gray-700 shadow-sm active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 cursor-pointer"
             >
               Clear
             </button>
@@ -236,13 +282,13 @@
         </section>
       </div>
 
-      <aside class="mt-6 rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-sm">
+      <aside class="mt-6 rounded-2xl bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 p-5 sm:p-6 shadow-sm transition-colors duration-200">
 
-        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-600 mb-2">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-gray-300 mb-2">
           Privacy
         </h3>
 
-        <p class="text-sm text-slate-600 leading-relaxed">
+        <p class="text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
           Your text is processed locally in your browser and is not uploaded to our server.
         </p>
 
@@ -254,25 +300,25 @@
 
       <h2 id="learn-heading" class="sr-only">About Base64</h2>
 
-      <article class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+      <article class="bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl p-5 sm:p-6 shadow-sm transition-colors duration-200">
 
-        <h3 class="text-xl font-bold text-slate-900 mb-3">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">
           What is Base64?
         </h3>
 
-        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-          Base64 is a way to represent binary data as readable text using 64 characters (A–Z, a–z, 0–9, <code class="text-sky-700">+</code>, and <code class="text-sky-700">/</code>). It is commonly used when data needs to travel through systems that expect text, such as email, JSON, or HTML. This UtilinOne tool converts your text to UTF-8 bytes, then encodes those bytes as Base64 — and can reverse the process.
+        <p class="text-slate-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+          Base64 is a way to represent binary data as readable text using 64 characters (A–Z, a–z, 0–9, <code class="text-sky-700 dark:text-sky-400">+</code>, and <code class="text-sky-700 dark:text-sky-400">/</code>). It is commonly used when data needs to travel through systems that expect text, such as email, JSON, or HTML. This UtilinOne tool converts your text to UTF-8 bytes, then encodes those bytes as Base64 — and can reverse the process.
         </p>
 
       </article>
 
-      <article class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+      <article class="bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl p-5 sm:p-6 shadow-sm transition-colors duration-200">
 
-        <h3 class="text-xl font-bold text-slate-900 mb-3">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">
           How to use this Base64 tool
         </h3>
 
-        <ol class="list-decimal list-inside space-y-2 text-slate-600 text-sm sm:text-base leading-relaxed">
+        <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
           <li>Select Encode or Decode.</li>
           <li>Enter your text in the input box.</li>
           <li>Click the action button to convert.</li>
@@ -281,41 +327,41 @@
 
       </article>
 
-      <article class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+      <article class="bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl p-5 sm:p-6 shadow-sm transition-colors duration-200">
 
-        <h3 class="text-xl font-bold text-slate-900 mb-3">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">
           Base64 Encoding Example
         </h3>
 
         <div class="grid sm:grid-cols-2 gap-4 text-sm">
 
           <div>
-            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400 mb-2">
               Input
             </p>
 
-            <pre class="rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 font-mono text-slate-800 overflow-x-auto">Hello World</pre>
+            <pre class="rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 px-4 py-3 font-mono text-slate-800 dark:text-gray-200 overflow-x-auto">Hello World</pre>
           </div>
 
           <div>
-            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400 mb-2">
               Output
             </p>
 
-            <pre class="rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 font-mono text-sky-700 overflow-x-auto">SGVsbG8gV29ybGQ=</pre>
+            <pre class="rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 px-4 py-3 font-mono text-sky-700 dark:text-sky-400 overflow-x-auto">SGVsbG8gV29ybGQ=</pre>
           </div>
 
         </div>
 
       </article>
 
-      <article class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+      <article class="bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl p-5 sm:p-6 shadow-sm transition-colors duration-200">
 
-        <h3 class="text-xl font-bold text-slate-900 mb-3">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">
           Is Base64 encryption?
         </h3>
 
-        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+        <p class="text-slate-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
           Base64 is an encoding format, not a security or encryption method. Anyone can decode it instantly. It should not be used to protect sensitive information such as passwords, API keys, or personal data.
         </p>
 
@@ -324,47 +370,47 @@
     </section>
 
     <section
-      class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm"
+      class="bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl p-5 sm:p-6 shadow-sm transition-colors duration-200"
       aria-labelledby="faq-heading"
     >
 
-      <h2 id="faq-heading" class="text-xl font-bold text-slate-900 mb-5">
+      <h2 id="faq-heading" class="text-xl font-bold text-slate-900 dark:text-white mb-5">
         FAQ
       </h2>
 
       <dl class="space-y-5">
 
         <div>
-          <dt class="font-semibold text-slate-900">What is Base64?</dt>
-          <dd class="mt-1 text-sm text-slate-600 leading-relaxed">
+          <dt class="font-semibold text-slate-900 dark:text-white">What is Base64?</dt>
+          <dd class="mt-1 text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
             Base64 is a text encoding that represents binary data using a 64-character alphabet so it can be stored or transmitted as plain text.
           </dd>
         </div>
 
         <div>
-          <dt class="font-semibold text-slate-900">Is Base64 encryption?</dt>
-          <dd class="mt-1 text-sm text-slate-600 leading-relaxed">
+          <dt class="font-semibold text-slate-900 dark:text-white">Is Base64 encryption?</dt>
+          <dd class="mt-1 text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
             No. Base64 only changes how data is written. It does not hide or protect the original content.
           </dd>
         </div>
 
         <div>
-          <dt class="font-semibold text-slate-900">Can Base64 encode Unicode text?</dt>
-          <dd class="mt-1 text-sm text-slate-600 leading-relaxed">
+          <dt class="font-semibold text-slate-900 dark:text-white">Can Base64 encode Unicode text?</dt>
+          <dd class="mt-1 text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
             Yes. This online Base64 tool encodes UTF-8 bytes, so English, Korean, Japanese, Chinese, European languages, and emoji all round-trip correctly.
           </dd>
         </div>
 
         <div>
-          <dt class="font-semibold text-slate-900">Is my data uploaded to a server?</dt>
-          <dd class="mt-1 text-sm text-slate-600 leading-relaxed">
+          <dt class="font-semibold text-slate-900 dark:text-white">Is my data uploaded to a server?</dt>
+          <dd class="mt-1 text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
             No. Conversion runs entirely in your browser. UtilinOne does not upload the text you enter in this tool.
           </dd>
         </div>
 
         <div>
-          <dt class="font-semibold text-slate-900">Can I decode Base64 on this website?</dt>
-          <dd class="mt-1 text-sm text-slate-600 leading-relaxed">
+          <dt class="font-semibold text-slate-900 dark:text-white">Can I decode Base64 on this website?</dt>
+          <dd class="mt-1 text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
             Yes. Switch to Decode, paste Base64, and convert it back to readable text.
           </dd>
         </div>
@@ -374,7 +420,7 @@
 
     <section aria-labelledby="related-heading">
 
-      <h2 id="related-heading" class="text-xl font-bold text-slate-900 mb-4">
+      <h2 id="related-heading" class="text-xl font-bold text-slate-900 dark:text-white mb-4">
         Related tools
       </h2>
 
@@ -382,34 +428,34 @@
 
         <a
           href="calculator.html"
-          class="group bg-white border border-slate-200 rounded-2xl p-5 hover:border-indigo-500 hover:shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
+          class="group bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl p-5 hover:border-indigo-500 dark:hover:border-indigo-700 hover:shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40"
         >
-          <h3 class="text-lg font-semibold text-slate-900 mb-1">
+          <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">
             Freelance Fee Calculator
           </h3>
 
-          <p class="text-slate-600 text-sm">
+          <p class="text-slate-600 dark:text-gray-400 text-sm">
             Calculate net earnings after platform fees and conversion costs.
           </p>
 
-          <span class="mt-3 inline-block text-indigo-600 text-sm font-medium group-hover:translate-x-1 transition-transform">
+          <span class="mt-3 inline-block text-indigo-600 dark:text-indigo-400 text-sm font-medium group-hover:translate-x-1 transition-transform">
             Open tool &rarr;
           </span>
         </a>
 
         <a
           href="srt.html"
-          class="group bg-white border border-slate-200 rounded-2xl p-5 hover:border-emerald-500 hover:shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+          class="group bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl p-5 hover:border-emerald-500 dark:hover:border-emerald-700 hover:shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
         >
-          <h3 class="text-lg font-semibold text-slate-900 mb-1">
+          <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">
             YouTube SRT Subtitle Cleaner
           </h3>
 
-          <p class="text-slate-600 text-sm">
+          <p class="text-slate-600 dark:text-gray-400 text-sm">
             Strip timestamps from YouTube subtitles into clean paragraphs.
           </p>
 
-          <span class="mt-3 inline-block text-emerald-600 text-sm font-medium group-hover:translate-x-1 transition-transform">
+          <span class="mt-3 inline-block text-emerald-600 dark:text-emerald-400 text-sm font-medium group-hover:translate-x-1 transition-transform">
             Open tool &rarr;
           </span>
         </a>
@@ -419,275 +465,302 @@
 
   </main>
 
-  <footer class="border-t border-slate-200 bg-white/60 py-6 text-center text-xs text-slate-500">
+  <footer class="border-t border-slate-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/60 py-6 text-center text-xs text-slate-500 dark:text-gray-400 transition-colors duration-200">
     &copy; 2026 UtilinOne. All client-side powered.
   </footer>
 
   <script>
-    const ACTIVE_TAB = 'bg-sky-500/10 text-sky-700 border border-sky-500/20';
-    const INACTIVE_TAB = 'text-slate-500 hover:text-slate-800';
+    (function () {
+      'use strict';
 
-    const tabEncode = document.getElementById('tabEncode');
-    const tabDecode = document.getElementById('tabDecode');
-    const inputEl = document.getElementById('base64Input');
-    const outputEl = document.getElementById('base64Output');
-    const btnConvert = document.getElementById('btnConvert');
-    const btnCopy = document.getElementById('btnCopy');
-    const btnSwap = document.getElementById('btnSwap');
-    const btnClear = document.getElementById('btnClear');
-    const copyLabel = document.getElementById('copyLabel');
-    const statusMessage = document.getElementById('statusMessage');
+      // --- THEME INIT (Default Light Mode) ---
+      function initTheme() {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      initTheme();
 
-    let mode = 'encode';
-    let copyTimer = null;
+      const btnThemeToggle = document.getElementById('btnThemeToggle');
+      if (btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+          }
+        });
+      }
 
-    function bytesToBase64(bytes) {
-      let binary = '';
-      const chunkSize = 0x8000;
+      const ACTIVE_TAB = 'bg-sky-500/10 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400 border border-sky-500/20 dark:border-sky-800';
+      const INACTIVE_TAB = 'text-slate-500 dark:text-gray-400 hover:text-slate-800 dark:hover:text-white';
 
-      for (let i = 0; i < bytes.length; i += chunkSize) {
-        binary += String.fromCharCode.apply(
-          null,
-          bytes.subarray(i, i + chunkSize)
+      const tabEncode = document.getElementById('tabEncode');
+      const tabDecode = document.getElementById('tabDecode');
+      const inputEl = document.getElementById('base64Input');
+      const outputEl = document.getElementById('base64Output');
+      const btnConvert = document.getElementById('btnConvert');
+      const btnCopy = document.getElementById('btnCopy');
+      const btnSwap = document.getElementById('btnSwap');
+      const btnClear = document.getElementById('btnClear');
+      const copyLabel = document.getElementById('copyLabel');
+      const statusMessage = document.getElementById('statusMessage');
+
+      let mode = 'encode';
+      let copyTimer = null;
+
+      function bytesToBase64(bytes) {
+        let binary = '';
+        const chunkSize = 0x8000;
+
+        for (let i = 0; i < bytes.length; i += chunkSize) {
+          binary += String.fromCharCode.apply(
+            null,
+            bytes.subarray(i, i + chunkSize)
+          );
+        }
+
+        return btoa(binary);
+      }
+
+      function encodeUtf8ToBase64(text) {
+        return bytesToBase64(new TextEncoder().encode(text));
+      }
+
+      function normalizeBase64(raw) {
+        let cleaned = String(raw)
+          .replace(/\s+/g, '')
+          .replace(/-/g, '+')
+          .replace(/_/g, '/');
+
+        const remainder = cleaned.length % 4;
+
+        if (remainder === 1) {
+          throw new Error('invalid');
+        }
+
+        if (remainder) {
+          cleaned += '='.repeat(4 - remainder);
+        }
+
+        if (!/^[A-Za-z0-9+/]*={0,2}$/.test(cleaned)) {
+          throw new Error('invalid');
+        }
+
+        return cleaned;
+      }
+
+      function decodeBase64ToUtf8(raw) {
+        const cleaned = normalizeBase64(raw);
+
+        let binary;
+
+        try {
+          binary = atob(cleaned);
+        } catch {
+          throw new Error('invalid');
+        }
+
+        const bytes = new Uint8Array(binary.length);
+
+        for (let i = 0; i < binary.length; i++) {
+          bytes[i] = binary.charCodeAt(i);
+        }
+
+        try {
+          return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+        } catch {
+          throw new Error('invalid');
+        }
+      }
+
+      function hideStatus() {
+        statusMessage.className =
+          'hidden mb-4 rounded-xl border px-4 py-3 text-sm';
+
+        statusMessage.textContent = '';
+      }
+
+      function showError(message) {
+        statusMessage.textContent = message;
+
+        statusMessage.className =
+          'mb-4 rounded-xl border border-rose-500/30 bg-rose-500/10 dark:bg-rose-950/40 px-4 py-3 text-sm text-rose-700 dark:text-rose-300';
+      }
+
+      function showSuccess(message) {
+        statusMessage.textContent = message;
+
+        statusMessage.className =
+          'mb-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 dark:bg-emerald-950/40 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-300';
+      }
+
+      function applyModeStyles() {
+        const encodeActive = mode === 'encode';
+
+        tabEncode.className =
+          'mode-tab px-4 py-2 rounded-lg text-sm font-medium transition min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 cursor-pointer ' +
+          (encodeActive ? ACTIVE_TAB : INACTIVE_TAB);
+
+        tabDecode.className =
+          'mode-tab px-4 py-2 rounded-lg text-sm font-medium transition min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 cursor-pointer ' +
+          (encodeActive ? INACTIVE_TAB : ACTIVE_TAB);
+
+        tabEncode.setAttribute(
+          'aria-selected',
+          encodeActive ? 'true' : 'false'
         );
-      }
 
-      return btoa(binary);
-    }
-
-    function encodeUtf8ToBase64(text) {
-      return bytesToBase64(new TextEncoder().encode(text));
-    }
-
-    function normalizeBase64(raw) {
-      let cleaned = String(raw)
-        .replace(/\s+/g, '')
-        .replace(/-/g, '+')
-        .replace(/_/g, '/');
-
-      const remainder = cleaned.length % 4;
-
-      if (remainder === 1) {
-        throw new Error('invalid');
-      }
-
-      if (remainder) {
-        cleaned += '='.repeat(4 - remainder);
-      }
-
-      if (!/^[A-Za-z0-9+/]*={0,2}$/.test(cleaned)) {
-        throw new Error('invalid');
-      }
-
-      return cleaned;
-    }
-
-    function decodeBase64ToUtf8(raw) {
-      const cleaned = normalizeBase64(raw);
-
-      let binary;
-
-      try {
-        binary = atob(cleaned);
-      } catch {
-        throw new Error('invalid');
-      }
-
-      const bytes = new Uint8Array(binary.length);
-
-      for (let i = 0; i < binary.length; i++) {
-        bytes[i] = binary.charCodeAt(i);
-      }
-
-      try {
-        return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
-      } catch {
-        throw new Error('invalid');
-      }
-    }
-
-    function hideStatus() {
-      statusMessage.className =
-        'hidden mb-4 rounded-xl border px-4 py-3 text-sm';
-
-      statusMessage.textContent = '';
-    }
-
-    function showError(message) {
-      statusMessage.textContent = message;
-
-      statusMessage.className =
-        'mb-4 rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-700';
-    }
-
-    function showSuccess(message) {
-      statusMessage.textContent = message;
-
-      statusMessage.className =
-        'mb-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700';
-    }
-
-    function applyModeStyles() {
-      const encodeActive = mode === 'encode';
-
-      tabEncode.className =
-        'mode-tab px-4 py-2 rounded-lg text-sm font-medium transition min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 ' +
-        (encodeActive ? ACTIVE_TAB : INACTIVE_TAB);
-
-      tabDecode.className =
-        'mode-tab px-4 py-2 rounded-lg text-sm font-medium transition min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 ' +
-        (encodeActive ? INACTIVE_TAB : ACTIVE_TAB);
-
-      tabEncode.setAttribute(
-        'aria-selected',
-        encodeActive ? 'true' : 'false'
-      );
-
-      tabDecode.setAttribute(
-        'aria-selected',
-        encodeActive ? 'false' : 'true'
-      );
-
-      btnConvert.textContent = encodeActive ? 'Encode' : 'Decode';
-
-      inputEl.placeholder = encodeActive
-        ? 'Enter text to encode...'
-        : 'Enter Base64 text to decode...';
-    }
-
-    function setMode(nextMode) {
-      mode = nextMode;
-      applyModeStyles();
-      hideStatus();
-    }
-
-    function convert() {
-      hideStatus();
-
-      const value = inputEl.value;
-
-      if (!value.trim()) {
-        outputEl.value = '';
-        showError('Please enter some text first.');
-        return;
-      }
-
-      try {
-        outputEl.value =
-          mode === 'encode'
-            ? encodeUtf8ToBase64(value)
-            : decodeBase64ToUtf8(value);
-      } catch {
-        outputEl.value = '';
-        showError(
-          'Invalid Base64 input. Please check the text and try again.'
+        tabDecode.setAttribute(
+          'aria-selected',
+          encodeActive ? 'false' : 'true'
         );
-      }
-    }
 
-    function clearAll() {
-      inputEl.value = '';
-      outputEl.value = '';
-      hideStatus();
-      copyLabel.textContent = 'Copy';
+        btnConvert.textContent = encodeActive ? 'Encode' : 'Decode';
 
-      if (copyTimer) {
-        clearTimeout(copyTimer);
+        inputEl.placeholder = encodeActive
+          ? 'Enter text to encode...'
+          : 'Enter Base64 text to decode...';
       }
 
-      inputEl.focus();
-    }
-
-    function swapPanels() {
-      const currentOutput = outputEl.value;
-
-      if (!currentOutput && !inputEl.value) {
-        showError('Please enter some text first.');
-        return;
+      function setMode(nextMode) {
+        mode = nextMode;
+        applyModeStyles();
+        hideStatus();
       }
 
-      inputEl.value = currentOutput;
-      outputEl.value = '';
+      function convert() {
+        hideStatus();
 
-      setMode(mode === 'encode' ? 'decode' : 'encode');
-    }
+        const value = inputEl.value;
 
-    async function copyOutput() {
-      const text = outputEl.value;
+        if (!value.trim()) {
+          outputEl.value = '';
+          showError('Please enter some text first.');
+          return;
+        }
 
-      if (!text) {
-        showError('Nothing to copy yet. Convert some text first.');
-        return;
+        try {
+          outputEl.value =
+            mode === 'encode'
+              ? encodeUtf8ToBase64(value)
+              : decodeBase64ToUtf8(value);
+        } catch {
+          outputEl.value = '';
+          showError(
+            'Invalid Base64 input. Please check the text and try again.'
+          );
+        }
       }
 
-      const markCopied = () => {
-        copyLabel.textContent = 'Copied!';
-        showSuccess('Copied!');
+      function clearAll() {
+        inputEl.value = '';
+        outputEl.value = '';
+        hideStatus();
+        copyLabel.textContent = 'Copy';
 
         if (copyTimer) {
           clearTimeout(copyTimer);
         }
 
-        copyTimer = setTimeout(() => {
-          copyLabel.textContent = 'Copy';
+        inputEl.focus();
+      }
 
-          if (statusMessage.textContent === 'Copied!') {
-            hideStatus();
-          }
-        }, 2000);
-      };
+      function swapPanels() {
+        const currentOutput = outputEl.value;
 
-      try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(text);
-          markCopied();
+        if (!currentOutput && !inputEl.value) {
+          showError('Please enter some text first.');
           return;
         }
 
-        throw new Error('clipboard unavailable');
+        inputEl.value = currentOutput;
+        outputEl.value = '';
 
-      } catch {
-        const helper = document.createElement('textarea');
+        setMode(mode === 'encode' ? 'decode' : 'encode');
+      }
 
-        helper.value = text;
-        helper.setAttribute('readonly', '');
-        helper.style.position = 'fixed';
-        helper.style.left = '-9999px';
+      async function copyOutput() {
+        const text = outputEl.value;
 
-        document.body.appendChild(helper);
+        if (!text) {
+          showError('Nothing to copy yet. Convert some text first.');
+          return;
+        }
 
-        helper.select();
-        helper.setSelectionRange(0, helper.value.length);
+        const markCopied = () => {
+          copyLabel.textContent = 'Copied!';
+          showSuccess('Copied!');
 
-        let copied = false;
+          if (copyTimer) {
+            clearTimeout(copyTimer);
+          }
+
+          copyTimer = setTimeout(() => {
+            copyLabel.textContent = 'Copy';
+
+            if (statusMessage.textContent === 'Copied!') {
+              hideStatus();
+            }
+          }, 2000);
+        };
 
         try {
-          copied = document.execCommand('copy');
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            markCopied();
+            return;
+          }
+
+          throw new Error('clipboard unavailable');
+
         } catch {
-          copied = false;
+          const helper = document.createElement('textarea');
+
+          helper.value = text;
+          helper.setAttribute('readonly', '');
+          helper.style.position = 'fixed';
+          helper.style.left = '-9999px';
+
+          document.body.appendChild(helper);
+
+          helper.select();
+          helper.setSelectionRange(0, helper.value.length);
+
+          let copied = false;
+
+          try {
+            copied = document.execCommand('copy');
+          } catch {
+            copied = false;
+          }
+
+          helper.remove();
+
+          if (copied) {
+            markCopied();
+            return;
+          }
+
+          showError(
+            'Could not copy. Select the output and copy it manually.'
+          );
         }
-
-        helper.remove();
-
-        if (copied) {
-          markCopied();
-          return;
-        }
-
-        showError(
-          'Could not copy. Select the output and copy it manually.'
-        );
       }
-    }
 
-    tabEncode.addEventListener('click', () => setMode('encode'));
-    tabDecode.addEventListener('click', () => setMode('decode'));
-    btnConvert.addEventListener('click', convert);
-    btnClear.addEventListener('click', clearAll);
-    btnSwap.addEventListener('click', swapPanels);
-    btnCopy.addEventListener('click', copyOutput);
+      tabEncode.addEventListener('click', () => setMode('encode'));
+      tabDecode.addEventListener('click', () => setMode('decode'));
+      btnConvert.addEventListener('click', convert);
+      btnClear.addEventListener('click', clearAll);
+      btnSwap.addEventListener('click', swapPanels);
+      btnCopy.addEventListener('click', copyOutput);
 
-    applyModeStyles();
+      applyModeStyles();
+    })();
   </script>
 
 </body>
