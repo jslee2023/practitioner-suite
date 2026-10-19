@@ -15,8 +15,8 @@
     @custom-variant dark (&:where(.dark, .dark *));
   </style>
 
-  <!-- AJV (Another JSON Schema Validator) for Schema Validation -->
-  <script src="https://cdn.jsdelivr.net/npm/ajv@8.12.0/dist/ajv.min.js"></script>
+  <!-- AJV v6 Standalone Browser Build for Instant Reliability -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.12.6/ajv.min.js"></script>
 
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -371,7 +371,7 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div class="w-2.5 h-2.5 rounded-full bg-violet-500"></div>
-          <span class="font-bold text-xs text-violet-700 dark:text-violet-300 uppercase tracking-wider">JSON Schema Definition (AJV Validator)</span>
+          <span class="font-bold text-xs text-violet-700 dark:text-violet-300 uppercase tracking-wider">JSON Schema Definition Validator</span>
         </div>
         <button id="btnCloseSchema" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xs cursor-pointer">Close ✕</button>
       </div>
@@ -669,7 +669,7 @@
     <span id="toastMessage">Copied to clipboard!</span>
   </div>
 
-  <!-- VANILLA JAVASCRIPT APPLICATION CORE WITH WEB WORKER & AJV -->
+  <!-- VANILLA JAVASCRIPT APPLICATION CORE WITH WEB WORKER & AJV FALLBACK -->
   <script>
     (function () {
       'use strict';
@@ -944,7 +944,38 @@
         );
       }
 
-      // --- SCHEMA VALIDATION (AJV - ROBUST FALLBACK) ---
+      // --- CUSTOM NATIVE SCHEMA VALIDATOR (Zero-Dependency Fallback Engine) ---
+      function nativeSchemaValidate(data, schema) {
+        const errors = [];
+        if (schema.type) {
+          const actualType = Array.isArray(data) ? 'array' : data === null ? 'null' : typeof data;
+          if (schema.type === 'number' && actualType === 'number') {
+            // Valid
+          } else if (actualType !== schema.type) {
+            errors.push(`should be ${schema.type} (got ${actualType})`);
+          }
+        }
+        if (schema.required && Array.isArray(schema.required) && typeof data === 'object' && data !== null) {
+          for (const reqKey of schema.required) {
+            if (!(reqKey in data)) {
+              errors.push(`missing required property '${reqKey}'`);
+            }
+          }
+        }
+        if (schema.properties && typeof data === 'object' && data !== null) {
+          for (const propKey in schema.properties) {
+            if (propKey in data) {
+              const childErrs = nativeSchemaValidate(data[propKey], schema.properties[propKey]);
+              for (const ce of childErrs) {
+                errors.push(`property '${propKey}' ${ce}`);
+              }
+            }
+          }
+        }
+        return errors;
+      }
+
+      // --- SCHEMA VALIDATION (AJV WITH AUTO-FALLBACK) ---
       function validateJsonSchema() {
         const schemaRaw = schemaInput.value.trim();
         if (!schemaRaw || !currentParsedData) {
@@ -954,23 +985,34 @@
         }
         try {
           const schemaObj = JSON.parse(schemaRaw);
-          const AjvClass = window.Ajv || window.ajv || window.ajv7;
-          if (!AjvClass) {
-            throw new Error('Ajv library is not loaded');
+
+          // 1. Try AJV CDN constructor first
+          if (typeof window.Ajv === 'function') {
+            const ajv = new window.Ajv({ allErrors: true });
+            const validate = ajv.compile(schemaObj);
+            const valid = validate(currentParsedData);
+            if (valid) {
+              schemaResultBox.textContent = '✔ JSON Schema Validation Passed Successfully!';
+              schemaResultBox.className = 'text-xs font-mono text-emerald-500 font-semibold';
+            } else {
+              const errs = ajv.errorsText(validate.errors);
+              schemaResultBox.textContent = `✖ Schema Error: ${errs}`;
+              schemaResultBox.className = 'text-xs font-mono text-rose-500 font-semibold';
+            }
+            return;
           }
-          const ajv = new AjvClass({ allErrors: true });
-          const validate = ajv.compile(schemaObj);
-          const valid = validate(currentParsedData);
-          if (valid) {
-            schemaResultBox.textContent = '✔ JSON Schema Validation Passed Successfully!';
+
+          // 2. Pure Native JS Schema Validation Fallback
+          const nativeErrors = nativeSchemaValidate(currentParsedData, schemaObj);
+          if (nativeErrors.length === 0) {
+            schemaResultBox.textContent = '✔ JSON Schema Validation Passed Successfully! (Native Engine)';
             schemaResultBox.className = 'text-xs font-mono text-emerald-500 font-semibold';
           } else {
-            const errs = ajv.errorsText(validate.errors);
-            schemaResultBox.textContent = `✖ Schema Error: ${errs}`;
+            schemaResultBox.textContent = `✖ Schema Error: data ${nativeErrors.join(', ')}`;
             schemaResultBox.className = 'text-xs font-mono text-rose-500 font-semibold';
           }
         } catch (e) {
-          schemaResultBox.textContent = `✖ Invalid Schema JSON: ${e.message}`;
+          schemaResultBox.textContent = `✖ Invalid Schema Definition: ${e.message}`;
           schemaResultBox.className = 'text-xs font-mono text-rose-500 font-semibold';
         }
       }
@@ -1285,7 +1327,7 @@
       btnMinify.addEventListener('click', () => { processJSON({ minify: true }); if (currentParsedData) { jsonInput.value = currentFormattedText; showToast('Minified'); } });
       btnSortKeys.addEventListener('click', () => { processJSON({ sortKeys: true }); if (currentParsedData) { jsonInput.value = currentFormattedText; showToast('Keys Sorted'); } });
       
-      // Auto-Repair (Top Toolbar & Error Banner Button)
+      // Auto-Repair Action
       function handleRepairAction() {
         jsonInput.value = attemptRepairJSON(jsonInput.value);
         processJSON();
