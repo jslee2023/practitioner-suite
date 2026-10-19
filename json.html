@@ -1251,7 +1251,7 @@
       jsonInput.addEventListener('keyup', updateCursorPosition);
       jsonInput.addEventListener('click', updateCursorPosition);
 
-      // --- ROBUST PASTE HANDLER (WITH FALLBACK) ---
+      // Paste Button Event Listener
       btnPaste.addEventListener('click', async () => {
         try {
           if (navigator.clipboard && navigator.clipboard.readText) {
@@ -1263,7 +1263,6 @@
           }
           throw new Error('Clipboard API not available');
         } catch (err) {
-          // Fallback: If browser security restricts direct clipboard read, focus textarea and prompt user to press Ctrl+V
           jsonInput.focus();
           try {
             const successful = document.execCommand('paste');
@@ -1273,7 +1272,6 @@
               return;
             }
           } catch (e) {}
-          
           showToast('Please press Ctrl+V (Cmd+V) to paste', false);
         }
       });
@@ -1282,7 +1280,28 @@
       indentSelect.addEventListener('change', () => { processJSON(); if (currentParsedData) jsonInput.value = currentFormattedText; });
       btnMinify.addEventListener('click', () => { processJSON({ minify: true }); if (currentParsedData) { jsonInput.value = currentFormattedText; showToast('Minified'); } });
       btnSortKeys.addEventListener('click', () => { processJSON({ sortKeys: true }); if (currentParsedData) { jsonInput.value = currentFormattedText; showToast('Keys Sorted'); } });
-      btnRepair.addEventListener('click', () => { jsonInput.value = attemptRepairJSON(jsonInput.value); processJSON(); showToast('Repaired'); });
+      
+      // Auto-Repair (Top Toolbar & Error Banner Button)
+      function handleRepairAction() {
+        jsonInput.value = attemptRepairJSON(jsonInput.value);
+        processJSON();
+        showToast('Repaired');
+      }
+      btnRepair.addEventListener('click', handleRepairAction);
+      btnErrorAutoFix.addEventListener('click', handleRepairAction);
+
+      // Go to Error Line Button
+      btnJumpToError.addEventListener('click', () => {
+        if (currentErrorDetails) {
+          jsonInput.focus();
+          const lines = jsonInput.value.split('\n');
+          let pos = 0;
+          for (let i = 0; i < currentErrorDetails.line - 1 && i < lines.length; i++) {
+            pos += lines[i].length + 1;
+          }
+          jsonInput.setSelectionRange(pos, pos + (lines[currentErrorDetails.line - 1] ? lines[currentErrorDetails.line - 1].length : 0));
+        }
+      });
 
       btnToggleSchema.addEventListener('click', () => schemaDrawer.classList.toggle('hidden'));
       btnCloseSchema.addEventListener('click', () => schemaDrawer.classList.add('hidden'));
