@@ -865,6 +865,29 @@
         malformed: `{\n  "name": "UtilinOne JSON Engine",\n  'unquotedKey': 'single quotes break strict JSON',\n  "trailingComma": true,\n}`
       };
 
+      // --- THEME INIT (Default Light Mode) ---
+      function initTheme() {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      initTheme();
+
+      const btnThemeToggle = document.getElementById('btnThemeToggle');
+      if (btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+          }
+        });
+      }
+
       // --- UTILITY: FORMAT BYTES & TOAST ---
       function formatBytes(bytes) {
         if (!bytes || bytes === 0) return '0 B';
@@ -1250,6 +1273,18 @@
       }
       jsonInput.addEventListener('keyup', updateCursorPosition);
       jsonInput.addEventListener('click', updateCursorPosition);
+
+      // Paste Button Event Listener (Added to fix paste bug)
+      btnPaste.addEventListener('click', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          jsonInput.value = text;
+          processJSON();
+          showToast('Pasted from clipboard');
+        } catch (err) {
+          showToast('Clipboard access failed. Please use Ctrl+V.', false);
+        }
+      });
 
       btnFormat.addEventListener('click', () => { processJSON(); if (currentParsedData) { jsonInput.value = currentFormattedText; showToast('Beautified'); } });
       indentSelect.addEventListener('change', () => { processJSON(); if (currentParsedData) jsonInput.value = currentFormattedText; });
