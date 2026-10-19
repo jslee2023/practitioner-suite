@@ -944,7 +944,7 @@
         );
       }
 
-      // --- SCHEMA VALIDATION (AJV) ---
+      // --- SCHEMA VALIDATION (AJV - ROBUST FALLBACK) ---
       function validateJsonSchema() {
         const schemaRaw = schemaInput.value.trim();
         if (!schemaRaw || !currentParsedData) {
@@ -954,7 +954,11 @@
         }
         try {
           const schemaObj = JSON.parse(schemaRaw);
-          const ajv = new Ajv({ allErrors: true });
+          const AjvClass = window.Ajv || window.ajv || window.ajv7;
+          if (!AjvClass) {
+            throw new Error('Ajv library is not loaded');
+          }
+          const ajv = new AjvClass({ allErrors: true });
           const validate = ajv.compile(schemaObj);
           const valid = validate(currentParsedData);
           if (valid) {
@@ -1303,7 +1307,10 @@
         }
       });
 
-      btnToggleSchema.addEventListener('click', () => schemaDrawer.classList.toggle('hidden'));
+      btnToggleSchema.addEventListener('click', () => {
+        schemaDrawer.classList.toggle('hidden');
+        validateJsonSchema();
+      });
       btnCloseSchema.addEventListener('click', () => schemaDrawer.classList.add('hidden'));
       schemaInput.addEventListener('input', validateJsonSchema);
 
