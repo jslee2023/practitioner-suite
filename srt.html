@@ -29,6 +29,15 @@
     }
   </script>
 
+  <!-- Immediate Theme Init (Prevents FOUC) -->
+  <script>
+    if (localStorage.getItem('feeflow_theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -215,16 +224,7 @@
     (function () {
       'use strict';
 
-      // --- THEME INIT ---
-      function initTheme() {
-        if (localStorage.getItem('feeflow_theme') === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }
-      initTheme();
-
+      // --- THEME TOGGLE LISTENER ---
       const btnThemeToggle = document.getElementById('btnThemeToggle');
       if (btnThemeToggle) {
         btnThemeToggle.addEventListener('click', () => {
@@ -293,7 +293,9 @@
           if (TIMESTAMP_LINE.test(line)) continue;
           if (CUE_META.test(line)) continue;
 
-          line = decodeEntities(stripMarkup(line)).replace(/\s+/g, ' ').trim();
+          line = stripMarkup(line);
+          line = decodeEntities(line).replace(/\s+/g, ' ').trim();
+          
           if (!line) continue;
           if (kept.length && kept[kept.length - 1] === line) continue;
           kept.push(line);
@@ -418,7 +420,7 @@
         showToast('Downloaded cleaned-subtitles.txt');
       }
 
-      window.addEventListener('DOMContentLoaded', () => {
+      function initApp() {
         inputEl.addEventListener('input', renderPreview);
         btnClear.addEventListener('click', () => {
           inputEl.value = '';
@@ -429,8 +431,16 @@
         btnDownload.addEventListener('click', downloadTxt);
 
         renderPreview();
-        lucide.createIcons();
-      });
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', initApp);
+      } else {
+        initApp();
+      }
     })();
   </script>
 </body>
