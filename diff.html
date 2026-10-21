@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text Diff Checker | UtilinOne Developer Suite</title>
+  <title>Text Diff Checker — UtilinOne Suite</title>
   <meta name="description" content="Professional client-side text and code diff comparison tool. Compare files side-by-side or unified with character-level accuracy. 100% private and secure.">
   <meta property="og:title" content="Text Diff Checker - UtilinOne">
   <meta property="og:description" content="Commercial-grade text, code, and JSON diff tool with split and unified views, instant statistics, and zero server latency.">
@@ -12,6 +12,9 @@
   <!-- Tailwind CSS v4 via Browser CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Tailwind v4 Custom Dark Mode Variant Configuration -->
   <style type="text/tailwindcss">
     @custom-variant dark (&:where(.dark, .dark *));
@@ -19,6 +22,15 @@
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Immediate Theme Init (Prevents FOUC) -->
+  <script>
+    if (localStorage.getItem('feeflow_theme') === 'dark' || localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
 
   <style>
     /* Custom font styling and scrollbars */
@@ -190,26 +202,36 @@
   <header class="border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       
-      <!-- Brand & Suite Identity -->
+      <!-- Zone 1: Standardized Brand Header (Index Match) -->
       <div class="flex items-center gap-3">
-        <a href="index.html" class="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform">
-            <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+        <a href="index.html" class="flex items-center gap-3 group transition-opacity hover:opacity-90">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white shrink-0 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-layer-group text-white text-xs"></i>
           </div>
           <div class="flex flex-col">
-            <span class="font-extrabold text-lg tracking-tight text-gray-900 dark:text-white">
-              Utilin<span class="text-indigo-600 dark:text-indigo-400">One</span>
-            </span>
-            <span class="text-[10px] uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400 -mt-1">Developer Suite</span>
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-base tracking-tight text-slate-900 dark:text-white">UtilinOne</span>
+              <span class="text-[10px] font-semibold px-2 py-0.2 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 uppercase tracking-wider">Secure</span>
+            </div>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium -mt-0.5">Developer & Creator Suite</span>
           </div>
         </a>
 
-        <div class="hidden md:flex items-center text-xs text-gray-500 dark:text-gray-400 space-x-2 pl-3 border-l border-gray-200 dark:border-gray-800">
-          <span>Tools</span>
-          <span>/</span>
-          <span class="text-indigo-600 dark:text-indigo-400 font-medium">Text Diff Checker</span>
+        <span class="text-slate-300 dark:text-slate-700 text-sm font-mono hidden sm:inline-block">/</span>
+        <div class="flex items-center gap-2 hidden sm:flex">
+          <span class="text-sm font-bold text-slate-800 dark:text-slate-200">Text Diff Checker</span>
+          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">Pro Engine</span>
         </div>
       </div>
+
+      <!-- Zone 2: Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600 dark:text-slate-400">
+        <a href="case.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Case Converter</a>
+        <a href="json.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">JSON Formatter</a>
+        <a href="diff.html" class="text-sky-600 dark:text-sky-400 font-semibold transition-colors">Diff Checker</a>
+        <a href="hash.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Hash Generator</a>
+        <a href="regex.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Regex Tester</a>
+      </nav>
 
       <!-- Center / Badge & Privacy -->
       <div class="flex items-center gap-2 sm:gap-3">
@@ -838,24 +860,17 @@
     (function () {
       'use strict';
 
-      // --- THEME INIT (Default Light Mode) ---
-      function initTheme() {
-        if (localStorage.getItem('theme') === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }
-      initTheme();
-
+      // --- THEME TOGGLE LISTENER ---
       const btnThemeToggle = document.getElementById('btnThemeToggle');
       if (btnThemeToggle) {
         btnThemeToggle.addEventListener('click', () => {
           if (document.documentElement.classList.contains('dark')) {
             document.documentElement.classList.remove('dark');
+            localStorage.setItem('feeflow_theme', 'light');
             localStorage.setItem('theme', 'light');
           } else {
             document.documentElement.classList.add('dark');
+            localStorage.setItem('feeflow_theme', 'dark');
             localStorage.setItem('theme', 'dark');
           }
         });
