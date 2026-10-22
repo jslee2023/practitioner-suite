@@ -3,45 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube SRT Subtitle Cleaner — UtilinOne</title>
-  <meta name="description" content="Strip timestamps, cue numbers, and tags from YouTube SRT/VTT subtitles into clean readable text. Client-side secure." />
+  <title>YouTube SRT Subtitle Cleaner — UtilinOne Suite</title>
+  <meta name="description" content="Strip timestamps, cue numbers, and tags from YouTube SRT/VTT subtitles into clean readable text. Client-side secure. 100% secure with zero server transmission." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='16 18 22 12 16 6'></polyline><polyline points='8 6 2 12 8 18'></polyline></svg>" type="image/svg+xml" />
 
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS v4 Browser Build -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Tailwind Dark Mode Configuration -->
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          },
-        }
-      }
-    }
-  </script>
+  <!-- Tailwind v4 Custom Dark Mode Variant Configuration -->
+  <style type="text/tailwindcss">
+    @custom-variant dark (&:where(.dark, .dark *));
+  </style>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Immediate Theme Init (Prevents FOUC) -->
   <script>
-    if (localStorage.getItem('feeflow_theme') === 'dark') {
+    if (localStorage.getItem('feeflow_theme') === 'dark' || localStorage.getItem('theme') === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
   </script>
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      color-scheme: light;
+    }
+    .dark {
+      color-scheme: dark;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
@@ -65,59 +67,77 @@
   </style>
 </head>
 
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans selection:bg-emerald-500/20 selection:text-emerald-800 dark:selection:text-emerald-200 antialiased transition-colors duration-200">
+<body class="bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans selection:bg-emerald-500/20 selection:text-emerald-800 dark:selection:text-emerald-200 antialiased transition-colors duration-200">
 
-  <!-- Ambient Light Effects -->
-  <div class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
-  <div class="fixed top-1/3 right-10 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
-  <div class="fixed bottom-10 left-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <!-- TOP GLOW BACKGROUND ACCENT -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-indigo-950/10 dark:from-indigo-900/10 via-violet-950/5 to-transparent pointer-events-none -z-10 blur-3xl"></div>
 
-  <!-- Header / Navigation Bar -->
-  <header class="border-b border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl sticky top-0 z-40 transition-colors duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-
-      <div class="flex items-center gap-4 min-w-0">
-        <a href="index.html" class="shrink-0 inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition">
-          <span aria-hidden="true">&larr;</span>
-          UtilinOne Suite
+  <!-- NAVIGATION HEADER -->
+  <header class="border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Zone 1: Standardized Brand Header -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-3 group transition-opacity hover:opacity-90">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white shrink-0 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-layer-group text-white text-xs"></i>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-base tracking-tight text-slate-900 dark:text-white">UtilinOne</span>
+              <span class="text-[10px] font-semibold px-2 py-0.2 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 uppercase tracking-wider">Secure</span>
+            </div>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium -mt-0.5">Developer & Creator Suite</span>
+          </div>
         </a>
 
-        <div class="hidden sm:block w-px h-8 bg-slate-200 dark:bg-slate-800"></div>
-
-        <div class="flex items-center gap-3 min-w-0">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0 text-white font-black">
-            <i data-lucide="scissors" class="w-6 h-6 stroke-[2.5]"></i>
-          </div>
-
-          <div class="min-w-0">
-            <div class="flex items-center gap-2.5 flex-wrap">
-              <h1 class="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                SRT Subtitle Cleaner
-              </h1>
-
-              <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 dark:border-emerald-800">
-                UtilinOne Suite
-              </span>
-            </div>
-
-            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden sm:block font-medium truncate">
-              Paste YouTube SRT/VTT and get clean paragraph text instantly
-            </p>
-          </div>
+        <span class="text-slate-300 dark:text-slate-700 text-sm font-mono hidden sm:inline-block">/</span>
+        <div class="flex items-center gap-2 hidden sm:flex">
+          <span class="text-sm font-bold text-slate-800 dark:text-slate-200">SRT Cleaner</span>
+          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">v1.0 Pro</span>
         </div>
       </div>
 
-      <!-- Controls & Actions -->
-      <div class="flex items-center space-x-3">
+      <!-- Zone 2: Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600 dark:text-slate-400">
+        <a href="case.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Case Converter</a>
+        <a href="json.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">JSON Formatter</a>
+        <a href="diff.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Diff Checker</a>
+        <a href="hash.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Hash Generator</a>
+        <a href="regex.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Regex Tester</a>
+      </nav>
+
+      <!-- Center / Dark Mode & Privacy -->
+      <div class="flex items-center gap-2 sm:gap-3">
         <!-- Dark Mode Toggle -->
-        <button id="btnThemeToggle" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer" title="Toggle Dark / Light Mode">
-          <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
-          <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+        <button id="btnThemeToggle" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-all cursor-pointer border border-gray-200 dark:border-gray-700 shadow-sm" title="Toggle Dark / Light Mode">
+          <svg id="themeIconSun" class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="themeIconMoon" class="w-4 h-4 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
         </button>
 
-        <span class="hidden md:inline-flex text-xs font-mono font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl shrink-0 shadow-sm">
-          v1.0 Pro
-        </span>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shadow-sm" title="Zero cloud storage. All computing is done locally inside browser memory.">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">100% Client-Side &amp; Private</span>
+          <span class="sm:hidden">100% Client-Side</span>
+        </div>
+
+        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">All Suite Tools</span>
+        </a>
       </div>
     </div>
   </header>
@@ -231,9 +251,11 @@
           if (document.documentElement.classList.contains('dark')) {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('feeflow_theme', 'light');
+            localStorage.setItem('theme', 'light');
           } else {
             document.documentElement.classList.add('dark');
             localStorage.setItem('feeflow_theme', 'dark');
+            localStorage.setItem('theme', 'dark');
           }
         });
       }
@@ -288,7 +310,7 @@
 
           if (!line) continue;
           if (/^WEBVTT/i.test(line)) continue;
-          if (/^(KIND|LANGUAGE):/i.test(line)) continue;
+          if /^(KIND|LANGUAGE):/i.test(line)) continue;
           if (SEQUENCE_LINE.test(line)) continue;
           if (TIMESTAMP_LINE.test(line)) continue;
           if (CUE_META.test(line)) continue;
