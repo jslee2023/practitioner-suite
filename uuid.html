@@ -4,30 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UUID v4 Generator | UtilinOne - Developer Suite</title>
-  <meta name="description" content="Generate cryptographically secure UUID v4 identifiers locally in your browser. Bulk generation, custom casing, hyphens, prefixes, and instant export." />
-  
-  <!-- Tailwind CSS v4 via CDN -->
+  <meta name="description" content="Generate cryptographically secure UUID v4 identifiers locally in your browser. Bulk generation, custom casing, hyphens, prefixes, and instant export. Zero server transmission." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='16 18 22 12 16 6'></polyline><polyline points='8 6 2 12 8 18'></polyline></svg>" type="image/svg+xml" />
+
+  <!-- Tailwind CSS v4 Browser Build -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Tailwind v4 Custom Dark Mode Variant Configuration -->
   <style type="text/tailwindcss">
     @custom-variant dark (&:where(.dark, .dark *));
   </style>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Immediate Theme Init (Prevents FOUC) -->
+  <script>
+    if (localStorage.getItem('feeflow_theme') === 'dark' || localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
-    :root { color-scheme: light; }
-    .dark { color-scheme: dark; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    :root {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      color-scheme: light;
+    }
+    .dark {
+      color-scheme: dark;
     }
     .font-mono {
       font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
+
     /* Custom scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
@@ -49,6 +68,20 @@
     .dark ::-webkit-scrollbar-thumb {
       background: #4b5563;
     }
+
+    /* Subtle background grid pattern */
+    .bg-grid-pattern {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    }
+    .dark .bg-grid-pattern {
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
     @keyframes pulse-subtle {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.6; }
@@ -58,33 +91,53 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500/20 selection:text-indigo-800 dark:selection:text-indigo-200 transition-colors duration-200">
+<body class="bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500/20 selection:text-indigo-800 dark:selection:text-indigo-200 transition-colors duration-200 relative">
   
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-indigo-500/10 via-violet-500/10 to-transparent blur-[120px] rounded-full"></div>
+    <div class="absolute inset-0 bg-grid-pattern opacity-60"></div>
+  </div>
+
   <!-- Toast Notification Container -->
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none" aria-live="polite"></div>
 
-  <!-- Header & Navigation -->
-  <header class="border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md sticky top-0 z-40 transition-colors duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <!-- NAVIGATION HEADER -->
+  <header class="border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Zone 1: Standardized Brand Header -->
       <div class="flex items-center gap-3">
-        <a href="index.html" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg p-1 transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-200">
-            <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
-            </svg>
+        <a href="index.html" class="flex items-center gap-3 group transition-opacity hover:opacity-90">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white shrink-0 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-layer-group text-white text-xs"></i>
           </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-lg tracking-tight text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">UtilinOne</span>
-              <span class="text-xs px-2 py-0.5 rounded font-mono font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">v4.2</span>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-base tracking-tight text-slate-900 dark:text-white">UtilinOne</span>
+              <span class="text-[10px] font-semibold px-2 py-0.2 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 uppercase tracking-wider">Secure</span>
             </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">Client-Side Developer Suite</p>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium -mt-0.5">Developer & Creator Suite</span>
           </div>
         </a>
+
+        <span class="text-slate-300 dark:text-slate-700 text-sm font-mono hidden sm:inline-block">/</span>
+        <div class="flex items-center gap-2 hidden sm:flex">
+          <span class="text-sm font-bold text-slate-800 dark:text-slate-200">UUID v4 Generator</span>
+          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">RFC 4122</span>
+        </div>
       </div>
 
-      <!-- Center / Right Header Badges & Actions -->
-      <div class="flex items-center gap-3">
+      <!-- Zone 2: Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600 dark:text-slate-400">
+        <a href="case.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Case Converter</a>
+        <a href="json.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">JSON Formatter</a>
+        <a href="diff.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Diff Checker</a>
+        <a href="hash.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Hash Generator</a>
+        <a href="regex.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Regex Tester</a>
+      </nav>
+
+      <!-- Center / Dark Mode & Privacy -->
+      <div class="flex items-center gap-2 sm:gap-3">
         <!-- Dark Mode Toggle -->
         <button id="btnThemeToggle" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-all cursor-pointer border border-gray-200 dark:border-gray-700 shadow-sm" title="Toggle Dark / Light Mode">
           <svg id="themeIconSun" class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -103,23 +156,23 @@
           </svg>
         </button>
 
-        <div class="hidden md:flex items-center gap-2 text-xs font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 px-3 py-1.5 rounded-full shadow-inner">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-subtle"></span>
-          <span>🔒 100% Client-Side &amp; Secure</span>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shadow-sm" title="Zero cloud storage. All computing is done locally inside browser memory.">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">100% Client-Side &amp; Private</span>
+          <span class="sm:hidden">100% Client-Side</span>
         </div>
 
-        <a href="index.html" class="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 px-3 py-1.5 rounded-lg transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 shadow-sm">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-          </svg>
-          <span>All Tools</span>
+        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">All Suite Tools</span>
         </a>
       </div>
     </div>
   </header>
 
   <!-- Main Content Container -->
-  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-10">
+  <main class="relative z-10 flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-10">
     
     <!-- Hero / Title Section -->
     <div class="text-center sm:text-left flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-200 dark:border-gray-800 pb-6">
@@ -541,75 +594,23 @@
         </div>
       </div>
 
-      <!-- Privacy Guarantee Callout -->
-      <div class="p-6 rounded-2xl bg-gradient-to-r from-gray-50 dark:from-gray-900 via-white dark:via-gray-900 to-indigo-50/50 dark:to-indigo-950/30 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="space-y-1 text-center sm:text-left">
-          <div class="flex items-center justify-center sm:justify-start gap-2 text-sm font-semibold text-gray-900 dark:text-white">
-            <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            UtilinOne Privacy &amp; Security Policy
-          </div>
-          <p class="text-xs text-gray-600 dark:text-gray-400 max-w-2xl">
-            Your data never leaves your browser. All UUIDs are generated locally using the standard Web Crypto API. No analytics, no server requests, no tracking cookies.
-          </p>
-        </div>
-        <a href="index.html" class="px-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-700 shrink-0 transition-colors">
-          Explore Developer Suite →
-        </a>
-      </div>
-
     </section>
 
   </main>
 
-  <!-- Related Tools Footer -->
-  <footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 mt-16 py-12 transition-colors duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
-      <div>
-        <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider font-mono mb-4">Related Developer Utilities in UtilinOne</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          
-          <a href="timestamp.html" class="p-3.5 rounded-xl bg-gray-50 dark:bg-gray-950 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all group shadow-sm">
-            <span class="text-xs font-semibold text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 block mb-0.5">Timestamp Tool</span>
-            <span class="text-[11px] text-gray-500 dark:text-gray-400">Epoch &amp; ISO converter</span>
-          </a>
-
-          <a href="base64.html" class="p-3.5 rounded-xl bg-gray-50 dark:bg-gray-950 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all group shadow-sm">
-            <span class="text-xs font-semibold text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 block mb-0.5">Base64 Encode</span>
-            <span class="text-[11px] text-gray-500 dark:text-gray-400">Binary &amp; text encoder</span>
-          </a>
-
-          <a href="url.html" class="p-3.5 rounded-xl bg-gray-50 dark:bg-gray-950 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all group shadow-sm">
-            <span class="text-xs font-semibold text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 block mb-0.5">URL Tool</span>
-            <span class="text-[11px] text-gray-500 dark:text-gray-400">Encode, decode &amp; parse</span>
-          </a>
-
-          <a href="hash.html" class="p-3.5 rounded-xl bg-gray-50 dark:bg-gray-950 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all group shadow-sm">
-            <span class="text-xs font-semibold text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 block mb-0.5">Hash Generator</span>
-            <span class="text-[11px] text-gray-500 dark:text-gray-400">SHA-256, MD5, SHA-1</span>
-          </a>
-
-          <a href="json.html" class="p-3.5 rounded-xl bg-gray-50 dark:bg-gray-950 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all group shadow-sm">
-            <span class="text-xs font-semibold text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 block mb-0.5">JSON Formatter</span>
-            <span class="text-[11px] text-gray-500 dark:text-gray-400">Prettify &amp; minify syntax</span>
-          </a>
-
-        </div>
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 py-8 text-center text-xs text-gray-500 dark:text-gray-400 mt-12">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-gray-700 dark:text-gray-300">UtilinOne</span>
+        <span>•</span>
+        <span>Commercial-grade client-side developer toolbox</span>
       </div>
-
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400">
-        <div class="flex items-center gap-2">
-          <span>&copy; UtilinOne. Built for developers with zero tracking.</span>
-        </div>
-        <div class="flex items-center gap-4">
-          <a href="index.html" class="hover:text-gray-900 dark:hover:text-white transition-colors">Suite Home</a>
-          <span>·</span>
-          <span class="text-emerald-600 dark:text-emerald-400 font-medium">RFC 4122 Compliant</span>
-          <span>·</span>
-          <span>Web Crypto CSPRNG</span>
-        </div>
+      <div class="flex items-center gap-4">
+        <span>🔒 Zero Server Transmission</span>
+        <span>•</span>
+        <a href="index.html" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Tools Directory</a>
       </div>
-
     </div>
   </footer>
 
@@ -618,26 +619,21 @@
     (function () {
       'use strict';
 
-      // --- THEME INIT (Default Light Mode) ---
-      function initTheme() {
-        if (localStorage.getItem('theme') === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }
-      initTheme();
-
+      // --- THEME TOGGLE LISTENER ---
       const btnThemeToggle = document.getElementById('btnThemeToggle');
-      btnThemeToggle.addEventListener('click', () => {
-        if (document.documentElement.classList.contains('dark')) {
-          document.documentElement.classList.remove('dark');
-          localStorage.setItem('theme', 'light');
-        } else {
-          document.documentElement.classList.add('dark');
-          localStorage.setItem('theme', 'dark');
-        }
-      });
+      if (btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('feeflow_theme', 'light');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('feeflow_theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+          }
+        });
+      }
 
       // --- STATE & OPTIONS ---
       const state = {
@@ -678,7 +674,6 @@
       
       const copyAllBtn = document.getElementById('copy-all-btn');
       const copyAllText = document.getElementById('copy-all-text');
-      const copyAllIcon = document.getElementById('copy-all-icon');
       const downloadTxtBtn = document.getElementById('download-txt-btn');
       const clearBtn = document.getElementById('clear-btn');
       const toastContainer = document.getElementById('toast-container');
@@ -1021,7 +1016,10 @@
       });
 
       // --- INITIALIZE ON LOAD ---
-      generateAndRender();
+      window.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) lucide.createIcons();
+        generateAndRender();
+      });
 
     })();
   </script>
