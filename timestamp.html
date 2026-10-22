@@ -3,27 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unix Timestamp Converter & Epoch Utility | UtilinOne</title>
-  <meta name="description" content="Commercial-grade Unix timestamp converter, live epoch clock, batch processor, and timestamp offset calculator. 100% client-side and secure.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Unix Timestamp Converter &amp; Epoch Utility — UtilinOne Suite</title>
+  <meta name="description" content="Commercial-grade Unix timestamp converter, live epoch clock, batch processor, and timestamp offset calculator. 100% client-side and secure. Zero server transmission." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='16 18 22 12 16 6'></polyline><polyline points='8 6 2 12 8 18'></polyline></svg>" type="image/svg+xml" />
+
+  <!-- Tailwind CSS v4 Browser Build -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  
+
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Tailwind v4 Custom Dark Mode Variant Configuration -->
   <style type="text/tailwindcss">
     @custom-variant dark (&:where(.dark, .dark *));
   </style>
 
-  <style>
-    :root { color-scheme: light; }
-    .dark { color-scheme: dark; }
-    body {
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Immediate Theme Init (Prevents FOUC) -->
+  <script>
+    if (localStorage.getItem('feeflow_theme') === 'dark' || localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
-    .font-mono {
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      color-scheme: light;
+    }
+    .dark {
+      color-scheme: dark;
+    }
+    .font-mono-code {
       font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
+
     /* Subtle background grid pattern */
     .bg-grid-pattern {
       background-size: 32px 32px;
@@ -36,7 +56,7 @@
         linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     }
-    /* Glow animations */
+
     @keyframes pulse-slow {
       0%, 100% { opacity: 0.6; transform: scale(1); }
       50% { opacity: 0.9; transform: scale(1.03); }
@@ -44,7 +64,7 @@
     .animate-pulse-slow {
       animation: pulse-slow 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
-    /* Custom scrollbar for tables & batch input */
+
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -71,6 +91,7 @@
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500/20 selection:text-indigo-900 dark:selection:text-indigo-200 transition-colors duration-200">
+  
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
     <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-indigo-500/10 via-violet-500/10 to-transparent blur-[120px] rounded-full animate-pulse-slow"></div>
     <div class="absolute top-[35%] -left-40 w-96 h-96 bg-indigo-500/5 blur-[140px] rounded-full"></div>
@@ -80,37 +101,45 @@
 
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <header class="relative z-10 border-b border-slate-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl sticky top-0 shadow-xs transition-colors duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <a href="index.html" class="group flex items-center gap-2.5 transition-all">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 p-0.5 shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all">
-            <div class="w-full h-full bg-white dark:bg-gray-900 rounded-[10px] flex items-center justify-center transition-colors">
-              <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                <polyline points="12 6 12 12 16 14" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
+  <!-- NAVIGATION HEADER -->
+  <header class="border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Zone 1: Standardized Brand Header -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-3 group transition-opacity hover:opacity-90">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white shrink-0 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-layer-group text-white text-xs"></i>
           </div>
-          <div>
+          <div class="flex flex-col">
             <div class="flex items-center gap-1.5">
-              <span class="font-bold text-lg tracking-tight text-slate-900 dark:text-white">Util<span class="text-indigo-600 dark:text-indigo-400">in</span>One</span>
-              <span class="text-[10px] font-semibold uppercase tracking-wider bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 px-1.5 py-0.5 rounded">Dev Suite</span>
+              <span class="font-bold text-base tracking-tight text-slate-900 dark:text-white">UtilinOne</span>
+              <span class="text-[10px] font-semibold px-2 py-0.2 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 uppercase tracking-wider">Secure</span>
             </div>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium -mt-0.5">Developer & Creator Suite</span>
           </div>
         </a>
-        <div class="hidden md:flex items-center text-xs text-slate-500 dark:text-gray-400 border-l border-slate-200 dark:border-gray-800 pl-4 space-x-2">
-          <span>/</span>
-          <span class="text-slate-800 dark:text-gray-200 font-medium flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Timestamp & Epoch Engine
-          </span>
+
+        <span class="text-slate-300 dark:text-slate-700 text-sm font-mono hidden sm:inline-block">/</span>
+        <div class="flex items-center gap-2 hidden sm:flex">
+          <span class="text-sm font-bold text-slate-800 dark:text-slate-200">Timestamp Engine</span>
+          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">Epoch & Math</span>
         </div>
       </div>
 
-      <div class="flex items-center gap-3">
+      <!-- Zone 2: Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600 dark:text-slate-400">
+        <a href="case.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Case Converter</a>
+        <a href="json.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">JSON Formatter</a>
+        <a href="diff.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Diff Checker</a>
+        <a href="hash.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Hash Generator</a>
+        <a href="regex.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Regex Tester</a>
+      </nav>
+
+      <!-- Center / Dark Mode & Privacy -->
+      <div class="flex items-center gap-2 sm:gap-3">
         <!-- Dark Mode Toggle -->
-        <button id="btnThemeToggle" class="p-2 rounded-xl bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-200 transition-all cursor-pointer border border-slate-200 dark:border-gray-700 shadow-sm" title="Toggle Dark / Light Mode">
+        <button id="btnThemeToggle" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-all cursor-pointer border border-gray-200 dark:border-gray-700 shadow-sm" title="Toggle Dark / Light Mode">
           <svg id="themeIconSun" class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -127,13 +156,16 @@
           </svg>
         </button>
 
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 shadow-xs">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>🔒 100% Client-Side & Secure</span>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shadow-sm" title="Zero cloud storage. All computing is done locally inside browser memory.">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">100% Client-Side &amp; Private</span>
+          <span class="sm:hidden">100% Client-Side</span>
         </div>
-        <a href="index.html" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 border border-slate-200 dark:border-gray-700 transition">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          All Tools
+
+        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">All Suite Tools</span>
         </a>
       </div>
     </div>
@@ -144,10 +176,10 @@
     <div class="text-center max-w-3xl mx-auto space-y-3">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        High-Precision Time & Epoch Calculator
+        High-Precision Time &amp; Epoch Calculator
       </div>
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-        Unix Timestamp <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600">Converter & Engine</span>
+        Unix Timestamp <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600">Converter &amp; Engine</span>
       </h1>
       <p class="text-slate-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
         Convert Unix epoch timestamps to human-readable dates and back. Features millisecond auto-detection, batch conversions, relative time diffs, and time offset math.
@@ -173,7 +205,7 @@
               <span class="text-xs font-medium text-indigo-600 dark:text-indigo-400 block mb-0.5">Seconds (10-digit)</span>
               <div class="flex items-center gap-2">
                 <span id="live-epoch-sec" class="font-mono text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer select-all" title="Click to copy">0000000000</span>
-                <button type="button" onclick="copyText(document.getElementById('live-epoch-sec').innerText, 'Seconds timestamp')" class="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-gray-800 rounded-lg transition" title="Copy Seconds">
+                <button type="button" onclick="copyText(document.getElementById('live-epoch-sec').innerText, 'Seconds timestamp')" class="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-gray-800 rounded-lg transition cursor-pointer" title="Copy Seconds">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                 </button>
               </div>
@@ -183,7 +215,7 @@
               <span class="text-xs font-medium text-violet-600 dark:text-violet-400 block mb-0.5">Milliseconds (13-digit)</span>
               <div class="flex items-center gap-2">
                 <span id="live-epoch-ms" class="font-mono text-2xl sm:text-3xl font-semibold tracking-tight text-slate-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 transition cursor-pointer select-all" title="Click to copy">0000000000000</span>
-                <button type="button" onclick="copyText(document.getElementById('live-epoch-ms').innerText, 'Milliseconds timestamp')" class="p-1.5 text-slate-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-slate-100 dark:hover:bg-gray-800 rounded-lg transition" title="Copy Milliseconds">
+                <button type="button" onclick="copyText(document.getElementById('live-epoch-ms').innerText, 'Milliseconds timestamp')" class="p-1.5 text-slate-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-slate-100 dark:hover:bg-gray-800 rounded-lg transition cursor-pointer" title="Copy Milliseconds">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                 </button>
               </div>
@@ -427,7 +459,7 @@
       <div id="view-date-to-epoch" class="hidden space-y-6">
         <div class="rounded-2xl bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 p-5 sm:p-6 shadow-sm backdrop-blur space-y-5 transition-colors duration-200">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">Select Date & Time</h3>
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-400">Select Date &amp; Time</h3>
             <div class="flex items-center gap-2">
               <button type="button" id="btn-date-now" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-indigo-700 dark:text-indigo-300 border border-slate-200 dark:border-gray-700 transition cursor-pointer">
                 Set Current Time
@@ -520,7 +552,7 @@
         <div>
           <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span class="w-2 h-5 rounded-full bg-violet-600"></span>
-            Timestamp Offset & Date Math Calculator
+            Timestamp Offset &amp; Date Math Calculator
           </h2>
           <p class="text-xs text-slate-600 dark:text-gray-400">Add or subtract years, months, days, hours, or minutes from any base timestamp.</p>
         </div>
@@ -621,7 +653,7 @@
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> No server analytics or timestamp tracking
           </li>
           <li class="flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Zero network roundtrips & latency
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Zero network roundtrips &amp; latency
           </li>
           <li class="flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Safe for private production log timestamps
@@ -659,54 +691,20 @@
         </div>
       </div>
     </div>
-
-    <div class="rounded-2xl bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 p-6 space-y-4 shadow-xs transition-colors duration-200">
-      <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400">More Developer Suite Tools</h3>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-        <a href="regex.html" class="block p-2.5 rounded-lg bg-slate-50 dark:bg-gray-950 hover:bg-slate-100 dark:hover:bg-gray-800 border border-slate-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition group">
-          <div class="font-semibold text-slate-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex items-center justify-between">
-            <span>Regex Tester</span>
-            <span>→</span>
-          </div>
-          <span class="text-[11px] text-slate-500 dark:text-gray-400">Real-time expression debugger</span>
-        </a>
-        <a href="srt.html" class="block p-2.5 rounded-lg bg-slate-50 dark:bg-gray-950 hover:bg-slate-100 dark:hover:bg-gray-800 border border-slate-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition group">
-          <div class="font-semibold text-slate-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex items-center justify-between">
-            <span>SRT Cleaner</span>
-            <span>→</span>
-          </div>
-          <span class="text-[11px] text-slate-500 dark:text-gray-400">Strip subtitles & timestamps</span>
-        </a>
-        <a href="url-encoder.html" class="block p-2.5 rounded-lg bg-slate-50 dark:bg-gray-950 hover:bg-slate-100 dark:hover:bg-gray-800 border border-slate-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition group">
-          <div class="font-semibold text-slate-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex items-center justify-between">
-            <span>URL Encoder</span>
-            <span>→</span>
-          </div>
-          <span class="text-[11px] text-slate-500 dark:text-gray-400">RFC 3986 URI parameter parser</span>
-        </a>
-        <a href="json-formatter.html" class="block p-2.5 rounded-lg bg-slate-50 dark:bg-gray-950 hover:bg-slate-100 dark:hover:bg-gray-800 border border-slate-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition group">
-          <div class="font-semibold text-slate-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex items-center justify-between">
-            <span>JSON Formatter</span>
-            <span>→</span>
-          </div>
-          <span class="text-[11px] text-slate-500 dark:text-gray-400">Minify, prettify and inspect trees</span>
-        </a>
-      </div>
-    </div>
   </main>
 
-  <footer class="relative z-10 border-t border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 mt-16 py-8 text-center text-xs text-slate-500 dark:text-gray-400 transition-colors duration-200">
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 py-8 text-center text-xs text-gray-500 dark:text-gray-400">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2">
-        <span class="font-bold text-slate-800 dark:text-gray-200">UtilinOne</span>
+        <span class="font-bold text-gray-700 dark:text-gray-300">UtilinOne</span>
         <span>•</span>
-        <span>Commercial-grade client-side developer utility suite</span>
+        <span>Commercial-grade client-side developer toolbox</span>
       </div>
-      <div class="flex items-center gap-4 text-slate-600 dark:text-gray-400">
-        <a href="index.html" class="hover:text-slate-900 dark:hover:text-white transition">Home</a>
-        <a href="timestamp.html" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition font-medium">Timestamp Converter</a>
-        <a href="base64.html" class="hover:text-slate-900 dark:hover:text-white transition">Base64</a>
-        <a href="regex.html" class="hover:text-slate-900 dark:hover:text-white transition">Regex Tester</a>
+      <div class="flex items-center gap-4">
+        <span>🔒 Zero Server Transmission</span>
+        <span>•</span>
+        <a href="index.html" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Tools Directory</a>
       </div>
     </div>
   </footer>
@@ -715,33 +713,28 @@
     (function () {
       'use strict';
 
-      // --- THEME INIT (Default Light Mode) ---
-      function initTheme() {
-        if (localStorage.getItem('theme') === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }
-      initTheme();
-
+      // --- THEME TOGGLE LISTENER ---
       const btnThemeToggle = document.getElementById('btnThemeToggle');
-      btnThemeToggle.addEventListener('click', () => {
-        if (document.documentElement.classList.contains('dark')) {
-          document.documentElement.classList.remove('dark');
-          localStorage.setItem('theme', 'light');
-        } else {
-          document.documentElement.classList.add('dark');
-          localStorage.setItem('theme', 'dark');
-        }
-      });
+      if (btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('feeflow_theme', 'light');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('feeflow_theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+          }
+        });
+      }
 
       // --- STATE & DOM ELEMENTS ---
       let tickerActive = true;
       let tickerInterval = null;
-      let activeTab = 'epoch-to-date'; // 'epoch-to-date' or 'date-to-epoch'
-      let inputMode = 'single'; // 'single' or 'batch'
-      let offsetDirection = 'add'; // 'add' or 'sub'
+      let activeTab = 'epoch-to-date';
+      let inputMode = 'single';
+      let offsetDirection = 'add';
 
       // Live Ticker Elements
       const liveEpochSecEl = document.getElementById('live-epoch-sec');
@@ -926,7 +919,6 @@
         window.scrollTo({ top: viewEpochToDate.offsetTop - 80, behavior: 'smooth' });
       });
 
-      // Detect user's local timezone string
       try {
         const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const offsetMin = new Date().getTimezoneOffset();
@@ -960,7 +952,7 @@
       tabBtnEpochToDate.addEventListener('click', () => switchTab('epoch-to-date'));
       tabBtnDateToEpoch.addEventListener('click', () => switchTab('date-to-epoch'));
 
-      // --- 3. MODE SWITCHING (Single vs Batch) ---
+      // --- 3. MODE SWITCHING ---
       modeBtnSingle.addEventListener('click', () => {
         inputMode = 'single';
         modeBtnSingle.className = 'px-2.5 py-1 rounded-md font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 shadow-xs cursor-pointer';
@@ -1268,7 +1260,7 @@
 
       function calculateDateToEpoch() {
         hideError();
-        const mode = selectTzTarget.value; // 'local' or 'utc'
+        const mode = selectTzTarget.value;
         let year = parseInt(manualYear.value, 10);
         let month = parseInt(manualMonth.value, 10);
         let day = parseInt(manualDay.value, 10);
@@ -1438,6 +1430,7 @@
 
       // --- INITIALIZATION ---
       window.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) lucide.createIcons();
         startLiveTicker();
 
         const initialSec = Math.floor(Date.now() / 1000);
