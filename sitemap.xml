@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://your-app-name.vercel.app/</loc>
+    <loc>https://utilinone.vercel.app/</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/calculator.html</loc>
+    <loc>https://utilinone.vercel.app/calculator.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/timestamp.html</loc>
+    <loc>https://utilinone.vercel.app/timestamp.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/srt.html</loc>
+    <loc>https://utilinone.vercel.app/srt.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/case.html</loc>
+    <loc>https://utilinone.vercel.app/case.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/base64.html</loc>
+    <loc>https://utilinone.vercel.app/base64.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/url.html</loc>
+    <loc>https://utilinone.vercel.app/url.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/json.html</loc>
+    <loc>https://utilinone.vercel.app/json.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/uuid.html</loc>
+    <loc>https://utilinone.vercel.app/uuid.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/regex.html</loc>
+    <loc>https://utilinone.vercel.app/regex.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/diff.html</loc>
+    <loc>https://utilinone.vercel.app/diff.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-app-name.vercel.app/hash.html</loc>
+    <loc>https://utilinone.vercel.app/hash.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
