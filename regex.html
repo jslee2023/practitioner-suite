@@ -3,35 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Regex Tester & Debugger | UtilinOne - 100% Client-Side Developer Suite</title>
-  <meta name="description" content="Commercial-grade, real-time client-side Regular Expression Tester, Match Highlighter, Capture Group Inspector, Web Worker acceleration, CSV export, and Dark Mode." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ec4899' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='4 17 10 11 4 5'></polyline><line x1='12' y1='19' x2='20' y2='19'></line></svg>" type="image/svg+xml" />
+  <title>Regex Tester &amp; Debugger — UtilinOne Suite</title>
+  <meta name="description" content="Commercial-grade, real-time client-side Regular Expression Tester, Match Highlighter, Capture Group Inspector, Web Worker acceleration, CSV export, and Dark Mode. 100% secure with zero server transmission." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='16 18 22 12 16 6'></polyline><polyline points='8 6 2 12 8 18'></polyline></svg>" type="image/svg+xml" />
 
   <!-- Tailwind CSS v4 Browser Build -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Tailwind v4 Custom Dark Mode Variant Configuration -->
   <style type="text/tailwindcss">
     @custom-variant dark (&:where(.dark, .dark *));
   </style>
 
-  <!-- Google Fonts: Inter & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Immediate Theme Init (Prevents FOUC) -->
+  <script>
+    if (localStorage.getItem('feeflow_theme') === 'dark' || localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
 
   <style>
-    :root { color-scheme: light; }
-    .dark { color-scheme: dark; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    .font-mono-code { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      color-scheme: light;
+    }
+    .dark {
+      color-scheme: dark;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
     
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #e5e7eb; }
-    ::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+    /* Sleek custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(229, 231, 235, 1);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(156, 163, 175, 1);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(107, 114, 128, 1);
+    }
+
     .dark ::-webkit-scrollbar-track { background: #1f2937; }
     .dark ::-webkit-scrollbar-thumb { background: #4b5563; }
+    .dark ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
 
     /* Match highlight token colors (Light & Dark) */
     .match-highlight-0 { background-color: rgba(99, 102, 241, 0.25); border-bottom: 2px solid #6366f1; color: #312e81; border-radius: 2px; padding: 0 1px; }
@@ -50,13 +81,15 @@
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .animate-fade-in { animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .animate-fade-in {
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
   </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500/30 selection:text-indigo-900 dark:selection:text-indigo-200 transition-colors duration-200">
+<body class="bg-slate-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500/30 selection:text-indigo-900 dark:selection:text-indigo-200 transition-colors duration-200">
 
-  <!-- TOP GLOW BACKGROUND -->
-  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-indigo-950/25 dark:from-indigo-900/15 via-violet-950/10 to-transparent pointer-events-none -z-10 blur-3xl"></div>
+  <!-- TOP GLOW BACKGROUND ACCENT -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-indigo-950/10 dark:from-indigo-900/10 via-violet-950/5 to-transparent pointer-events-none -z-10 blur-3xl"></div>
 
   <!-- TOAST NOTIFICATION -->
   <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 border border-gray-700 dark:border-gray-200 shadow-2xl text-xs font-medium">
@@ -65,36 +98,42 @@
   </div>
 
   <!-- NAVIGATION HEADER -->
-  <header class="sticky top-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 transition-colors duration-200">
+  <header class="border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       
+      <!-- Zone 1: Standardized Brand Header (Index Match) -->
       <div class="flex items-center gap-3">
-        <a href="index.html" class="flex items-center gap-2.5 group transition-transform active:scale-95" title="Return to UtilinOne Hub">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-shadow">
-            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-              <path d="M2 17l10 5 10-5"></path>
-              <path d="M2 12l10 5 10-5"></path>
-            </svg>
+        <a href="index.html" class="flex items-center gap-3 group transition-opacity hover:opacity-90">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white shrink-0 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-layer-group text-white text-xs"></i>
           </div>
           <div class="flex flex-col">
-            <span class="text-base font-bold tracking-tight text-gray-900 dark:text-white flex items-center gap-1.5">
-              UtilinOne
-              <span class="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">Suite</span>
-            </span>
-            <span class="text-[11px] text-gray-500 dark:text-gray-400 -mt-0.5">Developer Utilities</span>
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-base tracking-tight text-slate-900 dark:text-white">UtilinOne</span>
+              <span class="text-[10px] font-semibold px-2 py-0.2 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 uppercase tracking-wider">Secure</span>
+            </div>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium -mt-0.5">Developer & Creator Suite</span>
           </div>
         </a>
 
-        <div class="hidden sm:flex items-center text-gray-400 font-mono text-sm px-1">/</div>
-
-        <div class="hidden sm:flex items-center gap-2">
-          <span class="text-sm font-semibold text-gray-800 dark:text-gray-200">Regex Tester &amp; Debugger</span>
-          <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">v2.5.0</span>
+        <span class="text-slate-300 dark:text-slate-700 text-sm font-mono hidden sm:inline-block">/</span>
+        <div class="flex items-center gap-2 hidden sm:flex">
+          <span class="text-sm font-bold text-slate-800 dark:text-slate-200">Regex Tester</span>
+          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">ECMAScript</span>
         </div>
       </div>
 
-      <div class="flex items-center gap-3">
+      <!-- Zone 2: Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600 dark:text-slate-400">
+        <a href="case.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Case Converter</a>
+        <a href="json.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">JSON Formatter</a>
+        <a href="diff.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Diff Checker</a>
+        <a href="hash.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Hash Generator</a>
+        <a href="regex.html" class="text-sky-600 dark:text-sky-400 font-semibold transition-colors">Regex Tester</a>
+      </nav>
+
+      <!-- Center / Dark Mode & Privacy -->
+      <div class="flex items-center gap-2 sm:gap-3">
         <!-- Dark Mode Toggle -->
         <button id="btnThemeToggle" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-all cursor-pointer border border-gray-200 dark:border-gray-700 shadow-sm" title="Toggle Dark / Light Mode">
           <svg id="themeIconSun" class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -113,21 +152,16 @@
           </svg>
         </button>
 
-        <!-- Privacy Badge -->
-        <div class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-medium shadow-sm">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span>🔒 100% Client-Side</span>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shadow-sm" title="Zero cloud storage. All computing is done locally inside browser memory.">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">100% Client-Side &amp; Private</span>
+          <span class="sm:hidden">100% Client-Side</span>
         </div>
 
-        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 text-xs font-medium text-gray-700 dark:text-gray-200 transition-all flex items-center gap-1.5 shadow-sm">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          <span>All Tools</span>
+        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">All Suite Tools</span>
         </a>
       </div>
     </div>
@@ -141,7 +175,7 @@
       <div>
         <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
           Regex Tester &amp; Debugger
-          <span class="hidden sm:inline-flex text-xs font-normal text-indigo-500 dark:text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-1 rounded-lg font-mono">ECMAScript RegExp</span>
+          <span class="hidden sm:inline-flex text-xs font-normal text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 dark:bg-indigo-950/60 border border-indigo-500/20 dark:border-indigo-800 px-2.5 py-1 rounded-lg font-mono">ECMAScript RegExp</span>
         </h1>
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 max-w-2xl">
           Real-time regex pattern evaluation, capture group extraction, Web Worker acceleration, and find-and-replace debugging.
@@ -745,26 +779,20 @@ Invalid formats like @missinguser.com or invalid@ should be excluded from captur
       let currentMatches = [];
       let toastTimer = null;
 
-      // --- THEME INIT (Default to Light Mode) ---
-      function initTheme() {
-        // 사용자가 명시적으로 다크 모드를 저장한 경우에만 다크 모드 활성화, 그 외에는 항상 밝은 모드 기본
-        if (localStorage.getItem('theme') === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+      // --- THEME TOGGLE LISTENER ---
+      if (btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('feeflow_theme', 'light');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('feeflow_theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+          }
+        });
       }
-      initTheme();
-
-      btnThemeToggle.addEventListener('click', () => {
-        if (document.documentElement.classList.contains('dark')) {
-          document.documentElement.classList.remove('dark');
-          localStorage.setItem('theme', 'light');
-        } else {
-          document.documentElement.classList.add('dark');
-          localStorage.setItem('theme', 'dark');
-        }
-      });
 
       function showToast(message, isError = false) {
         if (toastTimer) clearTimeout(toastTimer);
@@ -1133,6 +1161,7 @@ Invalid formats like @missinguser.com or invalid@ should be excluded from captur
       });
 
       document.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) lucide.createIcons();
         const loadedFromHash = loadFromUrlHash();
         if (!loadedFromHash) setActiveFlags('gim');
         else setActiveFlags(getActiveFlags());
