@@ -113,7 +113,7 @@
         
         <div class="flex items-center gap-2 hidden sm:flex">
           <span class="text-sm font-bold text-slate-800 dark:text-slate-200">URL Encoder</span>
-          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">RFC 3986</span>
+          
         </div>
       </div>
 
@@ -145,11 +145,11 @@
     <!-- Page Title & Overview -->
     <div class="flex flex-wrap items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
+        <h1 id="tool-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">
           <span>URL Encoder / Decoder</span>
-          <span class="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 font-mono">RFC 3986</span>
+          
         </h1>
-        <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl">
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-gray-400">
           Convert URLs and query parameters to and from percent-encoded format. Fully supports Unicode (Korean, Japanese, emojis, multilingual text) with instant browser-based execution.
         </p>
       </div>
@@ -160,9 +160,9 @@
         <button type="button" id="sampleQueryBtn" class="text-xs bg-white dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-700 dark:text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-gray-800 shadow-sm transition cursor-pointer">
           Query String
         </button>
-        <button type="button" id="sampleUnicodeBtn" class="text-xs bg-white dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-700 dark:text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-gray-800 shadow-sm transition cursor-pointer">
-          Unicode URL 🇰🇷
-        </button>
+        <button type="button" id="btn-sample-unicode" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300 transition cursor-pointer">
+  Unicode URL <span class="text-[10px] font-mono px-1 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 ml-1">UTF-8</span>
+</button>
       </div>
     </div>
 

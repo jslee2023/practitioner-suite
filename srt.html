@@ -94,18 +94,12 @@
         <span class="text-slate-300 dark:text-slate-700 text-sm font-mono hidden sm:inline-block">/</span>
         <div class="flex items-center gap-2 hidden sm:flex">
           <span class="text-sm font-bold text-slate-800 dark:text-slate-200">SRT Cleaner</span>
-          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">v1.0 Pro</span>
+          
         </div>
       </div>
 
       <!-- Zone 2: Navigation Links -->
-      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600 dark:text-slate-400">
-        <a href="case.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Case Converter</a>
-        <a href="json.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">JSON Formatter</a>
-        <a href="diff.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Diff Checker</a>
-        <a href="hash.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Hash Generator</a>
-        <a href="regex.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Regex Tester</a>
-      </nav>
+      
 
       <!-- Center / Dark Mode & Privacy -->
       <div class="flex items-center gap-2 sm:gap-3">
@@ -134,9 +128,8 @@
           <span class="sm:hidden">100% Client-Side</span>
         </div>
 
-        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700">
-          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">All Suite Tools</span>
+        <a href="/" class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+          ← All Tools
         </a>
       </div>
     </div>
@@ -149,15 +142,12 @@
       <!-- Hero: left-aligned title with inline badge, description below -->
       <div class="space-y-3">
         <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          <h1 id="tool-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">
             SRT <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600">Subtitle Cleaner</span>
           </h1>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            SRT / VTT / SBV
-          </div>
+          
         </div>
-        <p class="max-w-3xl text-slate-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-gray-400">
           Sequence numbers, timestamps, HTML/VTT tags, and extra whitespace are stripped automatically as you paste.
         </p>
       </div>
