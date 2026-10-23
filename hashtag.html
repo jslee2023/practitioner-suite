@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hashtag & Tag Formatter — UtilinOne Suite</title>
+  <meta name="description" content="Clean, format, and convert raw keywords into clean hashtags or comma-separated tags for YouTube Shorts, Instagram Reels, and TikTok.">
+  <meta name="keywords" content="hashtag formatter, hashtag generator, youtube tag converter, tiktok hashtags, reels tags">
+  <meta property="og:title" content="Hashtag & Tag Formatter — UtilinOne Suite">
+  <meta property="og:description" content="Convert lists of keywords or rough text into clean social media hashtags or comma-separated tags instantly.">
+
+  <!-- Tailwind CSS CDN (v3 - Stable) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind Dark Mode Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Immediate Theme Init (Prevents FOUC) -->
+  <script>
+    if (localStorage.getItem('feeflow_theme') === 'dark' || localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(248, 250, 252, 0.8); }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .dark ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 1); }
+    .dark ::-webkit-scrollbar-thumb { background: rgba(51, 65, 85, 1); }
+
+    .glow-emerald {
+      box-shadow: 0 0 45px -10px rgba(16, 185, 129, 0.12);
+    }
+    .dark .glow-emerald {
+      box-shadow: 0 0 45px -10px rgba(16, 185, 129, 0.05);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 transition-colors duration-200 relative overflow-x-hidden">
+
+  <!-- Ambient Glow Backgrounds -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-gradient-to-b from-emerald-500/10 via-teal-500/5 to-transparent blur-[120px] rounded-full"></div>
+  </div>
+
+  <!-- Unified Standard Header with Index Icon -->
+  <header class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+
+      <!-- Standardized Brand Header (Index Match) -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-3 group transition-opacity hover:opacity-90">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white shrink-0 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-layer-group text-white text-xs"></i>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-base tracking-tight text-slate-900 dark:text-white">UtilinOne</span>
+              <span class="text-[10px] font-semibold px-2 py-0.2 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 uppercase tracking-wider">Secure</span>
+            </div>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium -mt-0.5">Developer & Creator Suite</span>
+          </div>
+        </a>
+
+        <span class="text-slate-300 dark:text-slate-700 text-sm font-mono hidden sm:inline-block">/</span>
+        <div class="flex items-center gap-2 hidden sm:flex">
+          <span class="text-sm font-bold text-slate-800 dark:text-slate-200">Hashtag Formatter</span>
+          <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">Text Utility</span>
+        </div>
+      </div>
+
+      <!-- Header Controls -->
+      <div class="flex items-center space-x-3">
+        <!-- Dark Mode Toggle Button -->
+        <button id="btnThemeToggle" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer" title="Toggle Dark / Light Mode">
+          <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        </button>
+
+        <a href="index.html" class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+          ← Hub
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-10 z-10 relative">
+
+    <section aria-labelledby="tool-heading">
+
+      <div class="mb-6">
+        <h1 id="tool-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight flex items-center gap-2">
+          <span>#️⃣ Hashtag & Tag Formatter</span>
+        </h1>
+        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-3xl">
+          Convert raw lists of keywords into clean social media hashtags or comma-separated video tags instantly.
+        </p>
+      </div>
+
+      <!-- Dual Workspace Panels -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Input Panel -->
+        <section class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col min-h-[22rem] transition-colors duration-200">
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <label for="rawInput" class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-600"></span> Raw Keywords / Text
+            </label>
+          </div>
+
+          <textarea
+            id="rawInput"
+            spellcheck="false"
+            rows="10"
+            placeholder="Enter keywords separated by commas, spaces, or line breaks (e.g. tech, coding, web dev, shorts)"
+            class="flex-1 min-h-48 sm:min-h-72 w-full resize-y rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 font-mono leading-relaxed placeholder:text-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+          ></textarea>
+
+          <div class="mt-4 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onclick="formatTags('hashtag')"
+              class="flex-1 min-h-11 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold text-white transition shadow-sm active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/70 cursor-pointer"
+            >
+              Format as #Hashtags
+            </button>
+            <button
+              type="button"
+              onclick="formatTags('comma')"
+              class="flex-1 min-h-11 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-200 transition border border-slate-200 dark:border-slate-700 shadow-sm active:scale-[0.98] cursor-pointer"
+            >
+              Format with Commas
+            </button>
+          </div>
+        </section>
+
+        <!-- Output Panel -->
+        <section class="bg-white dark:bg-slate-900 border border-emerald-500/30 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm glow-emerald flex flex-col min-h-[22rem] transition-colors duration-200">
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <label for="outputResult" class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Formatted Output
+            </label>
+          </div>
+
+          <textarea
+            id="outputResult"
+            spellcheck="false"
+            rows="10"
+            readonly
+            placeholder="Result will appear here..."
+            class="flex-1 min-h-48 sm:min-h-72 w-full resize-y rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 px-4 py-3 text-sm text-slate-800 dark:text-slate-100 font-mono leading-relaxed placeholder:text-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+          ></textarea>
+
+          <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onclick="copyResult()"
+              class="flex-1 min-w-[7.5rem] min-h-11 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-200 transition flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700 shadow-sm active:scale-[0.98] focus:outline-none cursor-pointer"
+            >
+              <span id="copyLabel">Copy Output</span>
+            </button>
+            <button
+              type="button"
+              onclick="clearAll()"
+              class="min-w-[5rem] min-h-11 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-200 transition border border-slate-200 dark:border-slate-700 shadow-sm active:scale-[0.98] cursor-pointer"
+            >
+              Clear
+            </button>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Privacy Notice Card -->
+      <aside class="mt-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-sm transition-colors duration-200">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1 flex items-center gap-1.5">
+          🔒 Zero Server Overhead
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Keywords are formatted entirely inside your browser environment using Client-Side JavaScript. No data is stored or transmitted.
+        </p>
+      </aside>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-6 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors duration-200 mt-12">
+    &copy; 2026 UtilinOne Suite. All client-side powered. Zero server logging.
+  </footer>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // --- THEME TOGGLE LISTENER ---
+    const btnThemeToggle = document.getElementById('btnThemeToggle');
+    if (btnThemeToggle) {
+      btnThemeToggle.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('feeflow_theme', 'light');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('feeflow_theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    }
+
+    function formatTags(mode) {
+      const input = document.getElementById('rawInput').value.trim();
+      if (!input) {
+        alert('Please enter some keywords first.');
+        return;
+      }
+
+      const words = input.split(/[\n,\s]+/).map(w => w.trim().replace(/[^a-zA-Z0-9_#]/g, '')).filter(w => w.length > 0);
+
+      let formatted = [];
+      if (mode === 'hashtag') {
+        formatted = words.map(w => w.startsWith('#') ? w : `#${w}`);
+        document.getElementById('outputResult').value = formatted.join(' ');
+      } else if (mode === 'comma') {
+        formatted = words.map(w => w.replace(/^#/, ''));
+        document.getElementById('outputResult').value = formatted.join(', ');
+      }
+    }
+
+    function clearAll() {
+      document.getElementById('rawInput').value = '';
+      document.getElementById('outputResult').value = '';
+      document.getElementById('copyLabel').textContent = 'Copy Output';
+    }
+
+    async function copyResult() {
+      const output = document.getElementById('outputResult');
+      const copyLabel = document.getElementById('copyLabel');
+      if (!output.value) {
+        alert('Nothing to copy yet. Convert some keywords first.');
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(output.value);
+        copyLabel.textContent = 'Copied!';
+        setTimeout(() => { copyLabel.textContent = 'Copy Output'; }, 2000);
+      } catch (err) {
+        alert('Failed to copy to clipboard.');
+      }
+    }
+  </script>
+
+</body>
+</html>
