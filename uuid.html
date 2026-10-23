@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UUID v4 Generator | UtilinOne - Developer Suite</title>
+  
+  <!-- Standardized SEO & Social Meta Tags -->
+  <title>UUID v4 Generator — UtilinOne Suite</title>
   <meta name="description" content="Generate cryptographically secure UUID v4 identifiers locally in your browser. Bulk generation, custom casing, hyphens, prefixes, and instant export. Zero server transmission." />
+  <meta name="keywords" content="uuid generator, uuid v4, guid generator, rfc 4122, unique identifier, bulk uuid" />
+  <meta property="og:title" content="UUID v4 Generator — UtilinOne Suite" />
+  <meta property="og:description" content="Generate cryptographically secure UUID v4 identifiers locally in your browser with zero latency." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://utilinone.vercel.app/uuid.html" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='16 18 22 12 16 6'></polyline><polyline points='8 6 2 12 8 18'></polyline></svg>" type="image/svg+xml" />
 
   <!-- Tailwind CSS v4 Browser Build -->
@@ -101,73 +108,52 @@
   <!-- Toast Notification Container -->
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none" aria-live="polite"></div>
 
-  <!-- NAVIGATION HEADER -->
-  <header class="border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200">
+  <!-- Unified Standard App Header -->
+  <header class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-      
-      <!-- Zone 1: Standardized Brand Header -->
+
+      <!-- Standardized Brand Header -->
       <div class="flex items-center gap-3">
-        <a href="index.html" class="flex items-center gap-3 group transition-opacity hover:opacity-90">
+        <a href="/" class="flex items-center gap-3 group transition-opacity hover:opacity-90">
           <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white shrink-0 group-hover:scale-105 transition-transform">
             <i class="fa-solid fa-layer-group text-white text-xs"></i>
           </div>
           <div class="flex flex-col">
             <div class="flex items-center gap-1.5">
               <span class="font-bold text-base tracking-tight text-slate-900 dark:text-white">UtilinOne</span>
-              <span class="text-[10px] font-semibold px-2 py-0.2 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 uppercase tracking-wider">Secure</span>
+              <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 uppercase tracking-wider">Secure</span>
             </div>
             <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium -mt-0.5">Developer & Creator Suite</span>
           </div>
         </a>
 
         <span class="text-slate-300 dark:text-slate-700 text-sm font-mono hidden sm:inline-block">/</span>
+        
         <div class="flex items-center gap-2 hidden sm:flex">
           <span class="text-sm font-bold text-slate-800 dark:text-slate-200">UUID v4 Generator</span>
           <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">RFC 4122</span>
         </div>
       </div>
 
-      <!-- Zone 2: Navigation Links -->
-      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600 dark:text-slate-400">
-        <a href="case.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Case Converter</a>
-        <a href="json.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">JSON Formatter</a>
-        <a href="diff.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Diff Checker</a>
-        <a href="hash.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Hash Generator</a>
-        <a href="regex.html" class="hover:text-slate-900 dark:hover:text-white transition-colors">Regex Tester</a>
-      </nav>
-
-      <!-- Center / Dark Mode & Privacy -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <!-- Dark Mode Toggle -->
-        <button id="btnThemeToggle" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-all cursor-pointer border border-gray-200 dark:border-gray-700 shadow-sm" title="Toggle Dark / Light Mode">
-          <svg id="themeIconSun" class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
-          <svg id="themeIconMoon" class="w-4 h-4 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </button>
-
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shadow-sm" title="Zero cloud storage. All computing is done locally inside browser memory.">
+      <!-- Right Header Controls -->
+      <div class="flex items-center space-x-3">
+        <!-- 100% Client-Side Privacy Badge -->
+        <div class="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-xs font-semibold">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">100% Client-Side &amp; Private</span>
-          <span class="sm:hidden">100% Client-Side</span>
+          100% Client-Side & Private
         </div>
 
-        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700">
-          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">All Suite Tools</span>
+        <!-- Dark Mode Toggle Button -->
+        <button id="btnThemeToggle" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer" title="Toggle Dark / Light Mode">
+          <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        </button>
+
+        <a href="/" class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+          ← All Tools
         </a>
       </div>
+
     </div>
   </header>
 
@@ -595,41 +581,43 @@
       </div>
 
     </section>
-    <!-- 기존 툴 인터페이스 끝나는 부분 바로 밑 -->
-<section class="tool-description" style="margin-top: 48px; border-top: 1px solid #e2e8f0; padding-top: 24px;">
-  <h2>About [Tool Name] & How It Works</h2>
-  <p><strong>[Tool Name]</strong> is a lightweight, secure online utility designed for developers and creators...</p>
 
-  <h3>Key Features</h3>
-  <ul>
-    <li><strong>100% Secure & Private:</strong> All processing happens directly in your browser.</li>
-    <li><strong>Lightning Fast:</strong> Instant execution powered by client-side JavaScript.</li>
-  </ul>
+    <!-- SEO & FAQ Section -->
+    <section class="tool-description bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm transition-colors duration-200 space-y-4" style="margin-top: 48px;">
+      <h2 class="text-lg font-bold text-slate-900 dark:text-white">About UUID v4 Generator &amp; How It Works</h2>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+        <strong>UUID v4 Generator</strong> is a lightweight, secure online utility designed for developers and creators to generate random, collision-resistant UUIDs locally.
+      </p>
 
-  <h3>Frequently Asked Questions</h3>
-  <details>
-    <summary>Is my data saved on your server?</summary>
-    <p>No, all operations run locally in your web browser.</p>
-  </details>
-</section>
+      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 pt-2">Key Features</h3>
+      <ul class="list-disc list-inside text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-1">
+        <li><strong>100% Secure & Private:</strong> All processing happens directly in your browser.</li>
+        <li><strong>Lightning Fast:</strong> Instant execution powered by client-side JavaScript.</li>
+      </ul>
+
+      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 pt-2">Frequently Asked Questions</h3>
+      <dl class="space-y-3 text-xs sm:text-sm">
+        <div>
+          <dt class="font-medium text-slate-900 dark:text-white">Is my data saved on your server?</dt>
+          <dd class="text-slate-600 dark:text-slate-400 mt-0.5">No, all operations run locally in your web browser.</dd>
+        </div>
+      </dl>
+    </section>
 
   </main>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 py-8 text-center text-xs text-gray-500 dark:text-gray-400 mt-12">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+  <!-- Clean Minimal Footer -->
+  <footer class="border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 py-6 mt-12 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 dark:text-gray-400">
       <div class="flex items-center gap-2">
-        <span class="font-bold text-gray-700 dark:text-gray-300">UtilinOne</span>
+        <span class="font-bold text-gray-700 dark:text-gray-300">UtilinOne Suite</span>
         <span>•</span>
-        <span>Commercial-grade client-side developer toolbox</span>
+        <span>Professional Client-Side Developer Suite</span>
       </div>
       <div class="flex items-center gap-4">
-        <span>🔒 Zero Server Transmission</span>
-        <span>•</span>
-        <a href="index.html" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Tools Directory</a>
+        <a href="/privacy.html" class="hover:text-gray-800 dark:hover:text-white transition underline underline-offset-4">Privacy Policy</a>
       </div>
     </div>
-    <a href="/privacy.html">Privacy Policy</a>
   </footer>
 
   <!-- Vanilla JS Engine -->
