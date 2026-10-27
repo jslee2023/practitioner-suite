@@ -131,7 +131,6 @@
         
         <div class="flex items-center gap-2 hidden sm:flex">
           <span class="text-sm font-bold text-slate-800 dark:text-slate-200">UUID v4 Generator</span>
-          
         </div>
       </div>
 
@@ -163,10 +162,6 @@
     <!-- Hero / Title Section -->
     <div class="text-center sm:text-left flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-200 dark:border-gray-800 pb-6">
       <div>
-        <div class="flex items-center justify-center sm:justify-start gap-2 mb-2">
-          
-                    
-        </div>
         <h1 id="tool-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">UUID v4 Generator</h1>
         <p class="text-xs sm:text-sm text-slate-600 dark:text-gray-400">
           Create cryptographically secure, universally unique identifiers instantly. No server round-trips, zero latency, and 128-bit local entropy.
@@ -581,26 +576,97 @@
 
     </section>
 
-    <!-- SEO & FAQ Section -->
-    <section class="tool-description bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm transition-colors duration-200 space-y-4" style="margin-top: 48px;">
-      <h2 class="text-lg font-bold text-slate-900 dark:text-white">About UUID v4 Generator &amp; How It Works</h2>
-      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-        <strong>UUID v4 Generator</strong> is a lightweight, secure online utility designed for developers and creators to generate random, collision-resistant UUIDs locally.
-      </p>
+    <!-- Enhanced SEO & Comprehensive Educational Section -->
+    <section class="tool-description bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm transition-colors duration-200 space-y-6" style="margin-top: 48px;">
+      
+      <!-- Header & Overview -->
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+          About UUID v4 Generator &amp; Comprehensive Developer Guide
+        </h2>
+        <p class="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          The <strong>UUID v4 Generator</strong> is an enterprise-grade, client-side utility engineered for software developers, database architects, and system administrators. It generates cryptographically secure, universally unique identifiers (UUIDs) conforming to RFC 4122 specifications entirely within your browser environment. By harnessing native operating system entropy through the Web Crypto API (<code class="text-indigo-600 dark:text-indigo-400 font-mono">crypto.randomUUID()</code>), this tool provides absolute security, zero latency, and complete privacy with zero server round-trips.
+        </p>
+      </div>
 
-      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 pt-2">Key Features</h3>
-      <ul class="list-disc list-inside text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-1">
-        <li><strong>100% Secure & Private:</strong> All processing happens directly in your browser.</li>
-        <li><strong>Lightning Fast:</strong> Instant execution powered by client-side JavaScript.</li>
-      </ul>
+      <hr class="border-gray-100 dark:border-gray-800" />
 
-      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 pt-2">Frequently Asked Questions</h3>
-      <dl class="space-y-3 text-xs sm:text-sm">
-        <div>
-          <dt class="font-medium text-slate-900 dark:text-white">Is my data saved on your server?</dt>
-          <dd class="text-slate-600 dark:text-slate-400 mt-0.5">No, all operations run locally in your web browser.</dd>
-        </div>
-      </dl>
+      <!-- Key Features -->
+      <div class="space-y-3">
+        <h3 class="text-base font-semibold text-slate-900 dark:text-white">
+          Key Features &amp; Capabilities
+        </h3>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          <li class="flex items-start gap-2 bg-slate-50 dark:bg-gray-800/50 p-3 rounded-xl border border-slate-100 dark:border-gray-800">
+            <i class="fa-solid fa-shield-halved text-emerald-500 mt-0.5 shrink-0"></i>
+            <span><strong>100% Client-Side Privacy:</strong> All random byte generation and formatting occur locally in browser memory. Sensitive identifiers are never transmitted across the network or stored on external servers.</span>
+          </li>
+          <li class="flex items-start gap-2 bg-slate-50 dark:bg-gray-800/50 p-3 rounded-xl border border-slate-100 dark:border-gray-800">
+            <i class="fa-solid fa-bolt text-indigo-500 mt-0.5 shrink-0"></i>
+            <span><strong>High-Performance Bulk Generation:</strong> Instantly generate up to 100 UUIDs simultaneously with batched DocumentFragments, ensuring fluid 60fps rendering without browser freezing.</span>
+          </li>
+          <li class="flex items-start gap-2 bg-slate-50 dark:bg-gray-800/50 p-3 rounded-xl border border-slate-100 dark:border-gray-800">
+            <i class="fa-solid fa-sliders text-violet-500 mt-0.5 shrink-0"></i>
+            <span><strong>Advanced Custom Formatting:</strong> Toggle hyphens, switch between lowercase and uppercase hex characters, prepend custom prefixes, append suffixes, or export directly as JSON arrays.</span>
+          </li>
+          <li class="flex items-start gap-2 bg-slate-50 dark:bg-gray-800/50 p-3 rounded-xl border border-slate-100 dark:border-gray-800">
+            <i class="fa-solid fa-keyboard text-sky-500 mt-0.5 shrink-0"></i>
+            <span><strong>Keyboard Shortcuts:</strong> Press <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-gray-800 rounded font-mono text-[11px]">Space</kbd> or <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-gray-800 rounded font-mono text-[11px]">Enter</kbd> anywhere on the page to instantly regenerate fresh tokens.</span>
+          </li>
+        </ul>
+      </div>
+
+      <hr class="border-gray-100 dark:border-gray-800" />
+
+      <!-- Expanded FAQ Section -->
+      <div class="space-y-4">
+        <h3 class="text-base font-semibold text-slate-900 dark:text-white">
+          Frequently Asked Questions (FAQ)
+        </h3>
+        
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+          <div class="bg-slate-50 dark:bg-gray-800/40 p-4 rounded-xl border border-slate-200/60 dark:border-gray-800">
+            <dt class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-indigo-500"></i>
+              What makes a UUID v4 cryptographically secure?
+            </dt>
+            <dd class="mt-1.5 text-slate-600 dark:text-slate-400 leading-relaxed">
+              UUID v4 relies on 122 bits of pseudo-random data generated by your operating system's CSPRNG via <code class="text-indigo-600 dark:text-indigo-400 font-mono">crypto.randomUUID()</code>, preventing predictability and collision vulnerabilities.
+            </dd>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-gray-800/40 p-4 rounded-xl border border-slate-200/60 dark:border-gray-800">
+            <dt class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-indigo-500"></i>
+              Are my generated UUIDs recorded or saved on a server?
+            </dt>
+            <dd class="mt-1.5 text-slate-600 dark:text-slate-400 leading-relaxed">
+              No. All operations run entirely offline in your browser's local memory. No database storage or server logging takes place.
+            </dd>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-gray-800/40 p-4 rounded-xl border border-slate-200/60 dark:border-gray-800">
+            <dt class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-indigo-500"></i>
+              Can I export bulk UUIDs into JSON format?
+            </dt>
+            <dd class="mt-1.5 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Yes. By selecting the <strong>JSON Array format</strong> in output options, you can instantly format and download batch lists as structured JSON arrays.
+            </dd>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-gray-800/40 p-4 rounded-xl border border-slate-200/60 dark:border-gray-800">
+            <dt class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-indigo-500"></i>
+              What is the probability of a UUID collision?
+            </dt>
+            <dd class="mt-1.5 text-slate-600 dark:text-slate-400 leading-relaxed">
+              The probability is practically zero. You would need to generate 1 billion UUIDs every second for approximately 85 years to reach a 50% chance of a single collision.
+            </dd>
+          </div>
+        </dl>
+      </div>
+
     </section>
 
   </main>

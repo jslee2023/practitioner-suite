@@ -113,7 +113,6 @@
         
         <div class="flex items-center gap-2 hidden sm:flex">
           <span class="text-sm font-bold text-slate-800 dark:text-slate-200">URL Encoder</span>
-          
         </div>
       </div>
 
@@ -147,7 +146,6 @@
       <div>
         <h1 id="tool-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">
           <span>URL Encoder / Decoder</span>
-          
         </h1>
         <p class="text-xs sm:text-sm text-slate-600 dark:text-gray-400">
           Convert URLs and query parameters to and from percent-encoded format. Fully supports Unicode (Korean, Japanese, emojis, multilingual text) with instant browser-based execution.
@@ -160,9 +158,9 @@
         <button type="button" id="sampleQueryBtn" class="text-xs bg-white dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-700 dark:text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-gray-800 shadow-sm transition cursor-pointer">
           Query String
         </button>
-        <button type="button" id="btn-sample-unicode" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300 transition cursor-pointer">
-  Unicode URL <span class="text-[10px] font-mono px-1 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 ml-1">UTF-8</span>
-</button>
+        <button type="button" id="sampleUnicodeBtn" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300 transition cursor-pointer">
+          Unicode URL <span class="text-[10px] font-mono px-1 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 ml-1">UTF-8</span>
+        </button>
       </div>
     </div>
 
@@ -508,26 +506,97 @@
       </div>
     </section>
 
-    <!-- SEO & FAQ Section -->
-    <section class="tool-description bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm transition-colors duration-200 space-y-4" style="margin-top: 48px;">
-      <h2 class="text-lg font-bold text-slate-900 dark:text-white">About URL Encoder / Decoder &amp; How It Works</h2>
-      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-        <strong>URL Encoder / Decoder</strong> is a lightweight, secure online utility designed for developers and creators to encode and decode URLs and query parameters.
-      </p>
+    <!-- Additional Enhanced SEO & Comprehensive FAQ Section -->
+    <section class="tool-description bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm transition-colors duration-200 space-y-6" style="margin-top: 48px;">
+      
+      <!-- Header & Overview -->
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+          About URL Encoder / Decoder &amp; Comprehensive Utility Guide
+        </h2>
+        <p class="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          The <strong>URL Encoder / Decoder</strong> is a high-performance, client-side utility crafted for software engineers, web developers, and quality assurance testers. Whether you are debugging complex query string parameters, serializing multilingual Unicode payloads, or inspecting web address structures, this tool guarantees instantaneous, secure, and accurate transformations in full compliance with RFC 3986 standards.
+        </p>
+      </div>
 
-      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 pt-2">Key Features</h3>
-      <ul class="list-disc list-inside text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-1">
-        <li><strong>100% Secure & Private:</strong> All processing happens directly in your browser.</li>
-        <li><strong>Lightning Fast:</strong> Instant execution powered by client-side JavaScript.</li>
-      </ul>
+      <hr class="border-gray-100 dark:border-gray-800" />
 
-      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 pt-2">Frequently Asked Questions</h3>
-      <dl class="space-y-3 text-xs sm:text-sm">
-        <div>
-          <dt class="font-medium text-slate-900 dark:text-white">Is my data saved on your server?</dt>
-          <dd class="text-slate-600 dark:text-slate-400 mt-0.5">No, all operations run locally in your web browser.</dd>
-        </div>
-      </dl>
+      <!-- Key Features -->
+      <div class="space-y-3">
+        <h3 class="text-base font-semibold text-slate-900 dark:text-white">
+          Key Features &amp; Capabilities
+        </h3>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          <li class="flex items-start gap-2 bg-slate-50 dark:bg-gray-800/50 p-3 rounded-xl border border-slate-100 dark:border-gray-800">
+            <i class="fa-solid fa-shield-halved text-emerald-500 mt-0.5 shrink-0"></i>
+            <span><strong>100% Client-Side Privacy:</strong> All string encoding and decoding execute entirely within your browser memory. Sensitive tokens, credentials, and API keys are never sent to external servers.</span>
+          </li>
+          <li class="flex items-start gap-2 bg-slate-50 dark:bg-gray-800/50 p-3 rounded-xl border border-slate-100 dark:border-gray-800">
+            <i class="fa-solid fa-bolt text-indigo-500 mt-0.5 shrink-0"></i>
+            <span><strong>Live Dual-Mode Execution:</strong> Switch seamlessly between <code class="text-indigo-600 dark:text-indigo-400 font-mono">encodeURIComponent</code> and <code class="text-indigo-600 dark:text-indigo-400 font-mono">encodeURI</code> with instant live reactive updates as you type.</span>
+          </li>
+          <li class="flex items-start gap-2 bg-slate-50 dark:bg-gray-800/50 p-3 rounded-xl border border-slate-100 dark:border-gray-800">
+            <i class="fa-solid fa-compass text-violet-500 mt-0.5 shrink-0"></i>
+            <span><strong>URL Structure Inspector:</strong> Automatically detects valid HTTP/HTTPS URLs, breaking down protocols, domains, paths, fragments, and individual query parameters into clean inspection tables.</span>
+          </li>
+          <li class="flex items-start gap-2 bg-slate-50 dark:bg-gray-800/50 p-3 rounded-xl border border-slate-100 dark:border-gray-800">
+            <i class="fa-solid fa-triangle-exclamation text-amber-500 mt-0.5 shrink-0"></i>
+            <span><strong>Robust Error Handling:</strong> Gracefully catches malformed percent-encoding sequences (such as incomplete hex bytes) and presents clear diagnostic messages instead of crashing.</span>
+          </li>
+        </ul>
+      </div>
+
+      <hr class="border-gray-100 dark:border-gray-800" />
+
+      <!-- Expanded FAQ Section -->
+      <div class="space-y-4">
+        <h3 class="text-base font-semibold text-slate-900 dark:text-white">
+          Frequently Asked Questions (FAQ)
+        </h3>
+        
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+          <div class="bg-slate-50 dark:bg-gray-800/40 p-4 rounded-xl border border-slate-200/60 dark:border-gray-800">
+            <dt class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-indigo-500"></i>
+              When should I use URL Component mode vs Full URL mode?
+            </dt>
+            <dd class="mt-1.5 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Use <strong>URL Component</strong> when encoding individual query parameter values or keys so characters like <code class="text-indigo-600 dark:text-indigo-400">&</code> or <code class="text-indigo-600 dark:text-indigo-400">=</code> are safely escaped. Use <strong>Full URL</strong> when encoding an entire web address while preserving structural characters like <code class="text-indigo-600 dark:text-indigo-400">://</code> and <code class="text-indigo-600 dark:text-indigo-400">?</code>.
+            </dd>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-gray-800/40 p-4 rounded-xl border border-slate-200/60 dark:border-gray-800">
+            <dt class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-indigo-500"></i>
+              Are my encoded query parameters stored anywhere?
+            </dt>
+            <dd class="mt-1.5 text-slate-600 dark:text-slate-400 leading-relaxed">
+              No. All operations run locally inside your browser runtime. No logs or input strings are saved or sent across the network.
+            </dd>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-gray-800/40 p-4 rounded-xl border border-slate-200/60 dark:border-gray-800">
+            <dt class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-indigo-500"></i>
+              How are non-ASCII characters like Korean or Emojis handled?
+            </dt>
+            <dd class="mt-1.5 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Non-ASCII characters and emojis are first converted into their respective UTF-8 byte sequences, and each byte is subsequently percent-encoded (e.g., <code class="text-indigo-600 dark:text-indigo-400">%ED%95%9C</code>).
+            </dd>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-gray-800/40 p-4 rounded-xl border border-slate-200/60 dark:border-gray-800">
+            <dt class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-indigo-500"></i>
+              Can I decode URLs containing '+' signs for spaces?
+            </dt>
+            <dd class="mt-1.5 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Yes. The tool features dedicated space formatting options that correctly parse and convert <code class="text-indigo-600 dark:text-indigo-400">+</code> characters used in traditional form-urlencoded strings.
+            </dd>
+          </div>
+        </dl>
+      </div>
+
     </section>
 
   </main>
